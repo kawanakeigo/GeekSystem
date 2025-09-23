@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Topページ</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1>Geekシステム Topページ</h1>
+
+    <ul>
+        <li><a th:href="@{/orders/new}">発注フォーム</a></li>
+        <li><a th:href="@{/orders}">発注履歴</a></li>
+        <li><a th:href="@{/admins}">管理者一覧</a></li>
+        <li><a th:href="@{/products}">商品一覧</a></li>
+        <li><a th:href="@{/stores}">店舗一覧</a></li>
+    </ul>
+</body>
+</html>

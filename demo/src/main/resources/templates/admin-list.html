@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理者一覧</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1>管理者一覧</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>名前</th>
+                <th>メール</th>
+                <th>役職</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="admin : ${admins}">
+                <td th:text="${admin.id}">ID</td>
+                <td th:text="${admin.name}">名前</td>
+                <td th:text="${admin.email}">メール</td>
+                <td th:text="${admin.role.name}">役職</td>
+                <td>
+                    <a th:href="@{'/admins/edit/' + ${admin.id}}">編集</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

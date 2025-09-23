@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>店舗一覧</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1>店舗一覧</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>店舗名</th>
+            <th>住所</th>
+        </tr>
+        <tr th:each="store : ${stores}">
+            <td th:text="${store.id}"></td>
+            <td th:text="${store.name}"></td>
+           <td th:text="${store.location}"></td> 
+        </tr>
+    </table>
+</body>
+</html>

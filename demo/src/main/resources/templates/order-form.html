@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>発注フォーム</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <script>
+    async function loadSubcategories(parentId, targetSelectId) {
+      const res = await fetch(`/categories/children?parentId=${parentId}`);
+      const data = await res.json();
+      const select = document.getElementById(targetSelectId);
+      select.innerHTML = '<option value="">選択してください</option>';
+      data.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.id;
+        opt.text = c.name;
+        select.appendChild(opt);
+      });
+    }
+
+    function onChangeCategory() {
+      const parentId = document.getElementById('category1').value;
+      loadSubcategories(parentId, 'category2');
+      document.getElementById('category3').innerHTML = '<option value="">選択してください</option>';
+      document.getElementById('productSelect').innerHTML = '<option value="">選択してください</option>';
+      document.getElementById('productId').value = '';
+    }
+
+    function onChangeSubCategory() {
+      const parentId = document.getElementById('category2').value;
+      loadSubcategories(parentId, 'category3');
+      document.getElementById('productSelect').innerHTML = '<option value="">選択してください</option>';
+      document.getElementById('productId').value = '';
+    }
+
+    async function onChangeSubSubCategory() {
+      const categoryId = document.getElementById('category3').value;
+      const res = await fetch(`/products/by-category?categoryId=${categoryId}`);
+      const data = await res.json();
+      const productSelect = document.getElementById('productSelect');
+      productSelect.innerHTML = '<option value="">選択してください</option>';
+      data.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.id;
+        opt.text = p.name;
+        productSelect.appendChild(opt);
+      });
+    }
+
+	function onProductChange() {
+	  const selected = document.getElementById("productSelect").value;
+	  document.getElementById("productId").value = selected;
+	}
+
+  </script>
+</head>
+<body>
+
+<h1>発注フォーム</h1>
+
+<form th:action="@{/orders}" th:object="${orderForm}" method="post">
+  <label>大カテゴリ：</label>
+  <select id="category1" onchange="onChangeCategory()" required>
+    <option value="">選択してください</option>
+    <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+  </select>
+
+  <label>中カテゴリ：</label>
+  <select id="category2" onchange="onChangeSubCategory()" required>
+    <option value="">選択してください</option>
+  </select>
+
+  <label>小カテゴリ：</label>
+  <select id="category3" onchange="onChangeSubSubCategory()" required>
+    <option value="">選択してください</option>
+  </select>
+
+  <label>商品：</label>
+  <!-- 表示用 -->
+  <select id="productSelect" onchange="onProductChange()" required>
+    <option value="">選択してください</option>
+  </select>
+  <input type="hidden" th:field="*{productId}" id="productId" />
+  <!-- フォーム送信用 -->
+  <input type="hidden" th:field="*{productId}" id="productId" />
+
+  <label>店舗：</label>
+  <select th:field="*{storeId}" required>
+    <option value="">選択してください</option>
+    <option th:each="s : ${stores}" th:value="${s.id}" th:text="${s.name}"></option>
+  </select>
+
+  <label>数量：</label>
+  <input type="number" th:field="*{quantity}" min="1" required />
+
+  <br/><br/>
+  <button type="submit">発注する</button>
+</form>
+
+</body>
+</html>
