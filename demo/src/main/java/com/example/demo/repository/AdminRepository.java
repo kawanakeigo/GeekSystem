@@ -9,5 +9,5 @@ import com.example.demo.entity.Admin;
 
 @Repository
 public interface AdminRepository extends JpaRepository<Admin, Long> {
-    Optional<Admin> findByEmail(String email); // ログインに使う
+    Optional<Admin> findByEmail(String email); 
 }

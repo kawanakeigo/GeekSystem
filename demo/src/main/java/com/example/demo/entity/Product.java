@@ -8,51 +8,35 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "products")
 public class Product {
-
     @Id
     private Long id;
-
     private String name;
-
     @Column(name = "category_id")
     private Long categoryId;
-
     @Column(name = "maker_id")
     private Long makerId;
-
     private Double price;
-
     @Column(name = "stock_quantity")
     private Integer stockQuantity;
-
     private String description;
-
-    // ★ すべてのフィールドに対して getter を追加してください
-
     public Long getId() {
         return id;
     }
-
     public String getName() {
         return name;
     }
-
     public Long getCategoryId() {
         return categoryId;
     }
-
     public Long getMakerId() {
         return makerId;
     }
-
     public Double getPrice() {
         return price;
     }
-
     public Integer getStockQuantity() {
         return stockQuantity;
     }
-
     public String getDescription() {
         return description;
     }

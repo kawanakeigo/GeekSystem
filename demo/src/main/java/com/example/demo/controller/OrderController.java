@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import jakarta.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,17 +15,13 @@ import com.example.demo.repository.StoreRepository;
 import com.example.demo.service.CategoryService;
 import com.example.demo.service.OrderService;
 
-
-
 @Controller
 @RequestMapping("/orders")
 public class OrderController {
-
     private final OrderService orderService;
     private final ProductRepository productRepository;
     private final StoreRepository storeRepository;
     private final CategoryService categoryService; 
-
     public OrderController(OrderService orderService,
                            ProductRepository productRepository,
                            StoreRepository storeRepository,
@@ -34,7 +31,6 @@ public class OrderController {
         this.storeRepository = storeRepository;
         this.categoryService = categoryService;
     }
-
     @GetMapping("/new")
     public String showOrderForm(Model model) {
         model.addAttribute("categories", categoryService.getParentCategories());
@@ -43,27 +39,14 @@ public class OrderController {
         model.addAttribute("orderForm", new OrderForm());
         return "order-form";
     }
-
     @PostMapping
-    public String createOrder(@ModelAttribute OrderForm orderForm) {
+    public String createOrder(@Valid @ModelAttribute ("orderForm") OrderForm orderForm) {
         orderService.createOrder(orderForm.getProductId(), orderForm.getStoreId(), orderForm.getQuantity());
         return "redirect:/orders";
     }
-
     @GetMapping
     public String listOrders(Model model) {
         model.addAttribute("orders", orderService.findAllOrders());
         return "order-list";
     }
-    
-   
-
-      
-    }
-    
-    
-
-
-
-
-
+}

@@ -7,16 +7,12 @@
 </head>
 <body>
     <h1>サインイン</h1>
-    
     <form th:action="@{/login}" method="post">
 		<label>メールアドレス：</label><br>
 		   <input type="text" name="username" required><br><br>
-
 		   <label>パスワード：</label><br>
 		   <input type="password" name="password" required><br><br>
-
 		   <button type="submit">ログイン</button>
-
         <p th:if="${param.error}" style="color:red;">ログインに失敗しました</p>
         <p th:if="${param.logout}" style="color:green;">ログアウトしました</p>
     </form>

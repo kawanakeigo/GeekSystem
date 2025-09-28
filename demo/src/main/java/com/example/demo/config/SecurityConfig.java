@@ -14,13 +14,10 @@ import com.example.demo.service.AdminDetailsService;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
     private final AdminDetailsService adminDetailsService;
-
     public SecurityConfig(AdminDetailsService adminDetailsService) {
         this.adminDetailsService = adminDetailsService;
     }
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -38,10 +35,8 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/login?logout=true")
                 .permitAll()
             );
-
         return http.build();
     }
-
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -49,10 +44,8 @@ public class SecurityConfig {
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
-        // 開発中はNoOp（平文）でOK
         return NoOpPasswordEncoder.getInstance();
     }
 }

@@ -13,13 +13,11 @@ import com.example.demo.service.CategoryService;
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
-
     private final CategoryService categoryService;
-
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
-
+    
     @GetMapping("/children")
     public List<Category> getChildren(@RequestParam("parentId") Long parentId) {
         return categoryService.getChildCategories(parentId);
