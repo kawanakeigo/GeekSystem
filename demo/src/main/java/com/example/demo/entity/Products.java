@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "products")
-public class Product {
+public class Products {
     @Id
     private Long id;
     private String name;

@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Order;
-import com.example.demo.entity.Product;
+import com.example.demo.entity.Products;
 import com.example.demo.entity.Store;
 import com.example.demo.repository.OrderRepository;
 import com.example.demo.repository.ProductRepository;
@@ -28,7 +28,7 @@ public class OrderService {
         return orderRepository.findAllByOrderByOrderDateDesc();
     }
     public Order createOrder(Long productId, Long storeId, int quantity) {
-        Product product = productRepository.findById(productId)
+        Products product = productRepository.findById(productId)
                             .orElseThrow(() -> new IllegalArgumentException("商品が見つかりません"));
         Store store = storeRepository.findById(storeId)
                             .orElseThrow(() -> new IllegalArgumentException("店舗が見つかりません"));

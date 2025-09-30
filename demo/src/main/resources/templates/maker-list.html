@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>メーカー一覧</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+  <h1>メーカー一覧</h1>
+  <table border="1">
+    <tr>
+      <th>ID</th>
+      <th>名前</th>
+      <th>操作</th>
+    </tr>
+    <tr th:each="makers : ${makers}">
+      <td th:text="${makers.id}"></td>
+      <td th:text="${makers.name}"></td>
+      <td>
+        <a th:href="@{/makers/edit/{id}(id=${makers.id})}">編集</a>
+        <form th:action="@{/makers/delete/{id}(id=${makers.id})}" method="post" style="display:inline;">
+          <button type="submit">削除</button>
+        </form>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

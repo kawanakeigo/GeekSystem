@@ -18,7 +18,7 @@ public class Order {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private Product product;
+    private Products product;
     @ManyToOne
     @JoinColumn(name = "store_id")
     private Store store;
@@ -28,35 +28,35 @@ public class Order {
     public Long getId() {
         return id;
     }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public Product getProduct() {
+    public Products getProduct() {
         return product;
-    }
-    public void setProduct(Product product) {
-        this.product = product;
     }
     public Store getStore() {
         return store;
     }
-    public void setStore(Store store) {
-        this.store = store;
-    }
     public Integer getQuantity() {
         return quantity;
-    }
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
     }
     public LocalDate getOrderDate() {
         return orderDate;
     }
-    public void setOrderDate(LocalDate orderDate) {
-        this.orderDate = orderDate;
-    }
     public String getStatus() {
         return status;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public void setProduct(Products product) {
+        this.product = product;
+    }
+    public void setStore(Store store) {
+        this.store = store;
+    }
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+    public void setOrderDate(LocalDate orderDate) {
+        this.orderDate = orderDate;
     }
     public void setStatus(String status) {
         this.status = status;

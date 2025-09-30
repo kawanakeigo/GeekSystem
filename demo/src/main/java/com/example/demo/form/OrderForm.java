@@ -2,10 +2,14 @@ package com.example.demo.form;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 public class OrderForm {
+	@NotNull
     private Long productId;
+	@NotNull
     private Long storeId;
+	@NotNull
     @Min(value = 1)
     @Max(value = 1000)
     private Integer quantity;

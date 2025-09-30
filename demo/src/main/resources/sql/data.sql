@@ -1,4 +1,4 @@
--- 外部キー制約を無効化してから削除（ただし慎重に）
+
 SET FOREIGN_KEY_CHECKS=0;
 
 DELETE FROM orders;
@@ -8,16 +8,11 @@ DELETE FROM makers;
 DELETE FROM stores;
 
 SET FOREIGN_KEY_CHECKS=1;
--- 他のテーブルも同様に
 
-
--- 外部キー制約を一時的に解除（重要！）
 SET FOREIGN_KEY_CHECKS = 0;
 
--- カテゴリ全削除
 DELETE FROM categories;
 
--- 外部キー制約を復活
 SET FOREIGN_KEY_CHECKS = 1;
 
 
@@ -29,13 +24,11 @@ CREATE TABLE IF NOT EXISTS categories (
 );
 
 
--- 大カテゴリ
 INSERT INTO categories (id, name, parent_id) VALUES (1, '冷蔵庫・洗濯機・掃除機', NULL);
 INSERT INTO categories (id, name, parent_id) VALUES (2, '電子レンジ・炊飯器', NULL);
 INSERT INTO categories (id, name, parent_id) VALUES (3, 'エアコン・空調', NULL);
 INSERT INTO categories (id, name, parent_id) VALUES (4, 'テレビ・レコーダー', NULL);
 
--- 中カテゴリ
 INSERT INTO categories (id, name, parent_id) VALUES (5, '冷蔵庫・冷凍庫', 1);
 INSERT INTO categories (id, name, parent_id) VALUES (6, '洗濯機・洗濯乾燥機', 1);
 INSERT INTO categories (id, name, parent_id) VALUES (7, '掃除機・クリーナー', 1);
@@ -48,7 +41,6 @@ INSERT INTO categories (id, name, parent_id) VALUES (13, 'テレビ', 4);
 INSERT INTO categories (id, name, parent_id) VALUES (14, 'レコーダー', 4);
 INSERT INTO categories (id, name, parent_id) VALUES (15, 'プロジェクター', 4);
 
--- 小カテゴリ
 INSERT INTO categories (id, name, parent_id) VALUES (16, '冷蔵庫', 5);
 INSERT INTO categories (id, name, parent_id) VALUES (17, '冷凍庫', 5);
 INSERT INTO categories (id, name, parent_id) VALUES (18, '保冷・冷温ボックス', 5);
@@ -108,14 +100,11 @@ INSERT INTO categories (id, name, parent_id) VALUES (61, 'プロジェクター�
 INSERT INTO categories (id, name, parent_id) VALUES (62, 'プロジェクタースクリーン関連品', 15);
 
 
-
--- makers
 CREATE TABLE IF NOT EXISTS makers (
   id BIGINT PRIMARY KEY,
   name VARCHAR(255) NOT NULL
 );
 
--- メーカー情報を登録
 INSERT INTO makers (id, name) VALUES
 (1, '三角電機'),
 (2, '夕立'),
@@ -128,7 +117,6 @@ INSERT INTO makers (id, name) VALUES
 (9, '虎印');
 
 
--- products
 CREATE TABLE IF NOT EXISTS products (
   id BIGINT PRIMARY KEY,
   name VARCHAR(255),
@@ -139,7 +127,6 @@ CREATE TABLE IF NOT EXISTS products (
   description TEXT
 );
 
--- 修正後（OK）
 INSERT INTO products (id, name, category_id, maker_id, price, stock_quantity, description) VALUES
 (1, 'SR-IKJ-01',              5,  1, 0, 0, 'いい感じの冷蔵庫です'),             -- 冷蔵庫
 (2, 'YDC-DSK-1001',           6,  2, 0, 0, 'いい感じのドラム式選択乾燥機です'),   -- ドラム式洗濯乾燥機
@@ -152,7 +139,6 @@ INSERT INTO products (id, name, category_id, maker_id, price, stock_quantity, de
 (9, 'MT-S01',                21, 8, 0, 0, 'いい感じの炊飯器です'),               -- 炊飯器（マイリス・トーヤマ）
 (10, 'TZ-HJ-11',             22, 9, 0, 0, 'いい感じの保温ジャーです');           -- 保温ジャー
 
--- stores
 CREATE TABLE IF NOT EXISTS stores (
   id BIGINT PRIMARY KEY,
   name VARCHAR(255),
@@ -165,7 +151,6 @@ INSERT INTO stores (id, name, location) VALUES
 (3, '池袋店', '東京都豊島区3-3-3');
 
 
--- roles
 CREATE TABLE IF NOT EXISTS roles (
   id BIGINT PRIMARY KEY,
   name VARCHAR(255)
@@ -177,7 +162,6 @@ INSERT INTO roles (id, name) VALUES
 (3, 'スタッフ');
 
 
--- permissions
 CREATE TABLE IF NOT EXISTS permissions (
   id BIGINT PRIMARY KEY,
   name VARCHAR(255)
@@ -189,17 +173,16 @@ INSERT INTO permissions (id, name) VALUES
 (3, '発注管理');
 
 
--- admins
-CREATE TABLE IF NOT EXISTS admins (
+CREATE TABLE IF NOT EXISTS Users (
   id BIGINT PRIMARY KEY,
   name VARCHAR(255),
   role_id BIGINT,
   email VARCHAR(255)
 );
 
-INSERT INTO admins (id, name, role_id, email) VALUES
-(1, '山田 太郎', 1, 'yamada@example.com'),
-(2, '佐藤 花子', 2, 'sato@example.com');
+INSERT INTO Users (id, name, email, password, role_id)
+    VALUES (2, '山田 太郎', 'admin@example.com', 'password', 1);
+    
 
 
 -- stocks
