@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.entity.Admin;
 import com.example.demo.entity.Role;
-import com.example.demo.form.AdominForm;
+import com.example.demo.form.AdminForm;
 import com.example.demo.repository.AdminRepository;
 import com.example.demo.repository.RoleRepository;
 
@@ -35,12 +35,12 @@ public class AdminController {
     }
     @GetMapping("/new")
     public String showCreateForm(Model model) {
-        model.addAttribute("adminForm", new AdominForm());
+        model.addAttribute("adminForm", new AdminForm());
         model.addAttribute("roles", roleRepository.findAll());
         return "admin-form";
     }
     @PostMapping("/new")
-    public String createAdmin(@Valid @ModelAttribute ("adominForm")  AdominForm form) {
+    public String createAdmin(@Valid @ModelAttribute ("adominForm")  AdminForm form) {
         Admin admin = new Admin();
         admin.setName(form.getName());
         admin.setEmail(form.getEmail());
@@ -56,7 +56,7 @@ public class AdminController {
         if (admin == null) {
             return "redirect:/admins";
         }
-        AdominForm form = new AdominForm();
+        AdminForm form = new AdminForm();
         form.setId(admin.getId());
         form.setName(admin.getName());
         form.setEmail(admin.getEmail());
@@ -66,7 +66,7 @@ public class AdminController {
         return "admin-form";
     }
     @PostMapping("/update")
-    public String updateAdmin(@ModelAttribute AdominForm form) {
+    public String updateAdmin(@ModelAttribute AdminForm form) {
         Admin admin = adminRepository.findById(form.getId()).orElse(null);
         if (admin == null) {
             return "redirect:/admins"; 

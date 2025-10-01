@@ -5,8 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public class AdominForm {
-    private Long id;
+
+public class AdminForm {
+	private Long id;
     @NotBlank(message = "名前は必須です")
     @Size(max = 50)
     private String name;
@@ -27,4 +28,5 @@ public class AdominForm {
     public void setPassword(String password) { this.password = password; }
     public Long getRoleId() { return roleId; }
     public void setRoleId(Long roleId) { this.roleId = roleId; }
+
 }
