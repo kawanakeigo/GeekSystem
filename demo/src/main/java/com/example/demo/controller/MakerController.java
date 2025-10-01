@@ -18,21 +18,25 @@ public class MakerController {
 	public MakerController(MakerRepository makerRepository) {
         this.makerRepository = makerRepository;
     }
+	
 	@GetMapping
     public String listMakers(Model model) {
         model.addAttribute("makers", makerRepository.findAll());
         return "maker-list";
     }
+	
 	@GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("maker", new Makers());
         return "maker-form";
     }
+	
     @PostMapping("/new")
     public String createMaker(@ModelAttribute Makers maker) {
         makerRepository.save(maker);
         return "redirect:/makers";
     }
+    
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
         Makers maker = makerRepository.findById(id).orElse(null);
@@ -40,11 +44,13 @@ public class MakerController {
         model.addAttribute("maker", maker);
         return "maker-form";
     }
+    
     @PostMapping("/update")
     public String updateMaker(@ModelAttribute Makers maker) {
         makerRepository.save(maker);
         return "redirect:/makers";
     }
+    
     @PostMapping("/delete/{id}")
     public String deleteMaker(@PathVariable Long id) {
         makerRepository.deleteById(id);

@@ -27,18 +27,21 @@ public class AdminController {
         this.adminRepository = adminRepository;
         this.roleRepository = roleRepository;
     }
+    
     @GetMapping
     public String listAdmins(Model model) {
         List<Admin> admins = adminRepository.findAll();
         model.addAttribute("admins", admins);
         return "admin-list";
     }
+    
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("adminForm", new AdminForm());
         model.addAttribute("roles", roleRepository.findAll());
         return "admin-form";
     }
+    
     @PostMapping("/new")
     public String createAdmin(@Valid @ModelAttribute ("adominForm")  AdminForm form) {
         Admin admin = new Admin();
@@ -50,6 +53,7 @@ public class AdminController {
         adminRepository.save(admin);
         return "redirect:/admins";
     }
+    
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
         Admin admin = adminRepository.findById(id).orElse(null);
@@ -65,6 +69,8 @@ public class AdminController {
         model.addAttribute("roles", roleRepository.findAll());
         return "admin-form";
     }
+    
+    
     @PostMapping("/update")
     public String updateAdmin(@ModelAttribute AdminForm form) {
         Admin admin = adminRepository.findById(form.getId()).orElse(null);

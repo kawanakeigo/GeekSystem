@@ -15,6 +15,7 @@ public class AdminDetailsService implements UserDetailsService {
     public AdminDetailsService(AdminRepository adminRepository) {
         this.adminRepository = adminRepository;
     }
+    
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Admin admin = adminRepository.findByEmail(email)

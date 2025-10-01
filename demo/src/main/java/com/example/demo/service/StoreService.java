@@ -14,15 +14,19 @@ public class StoreService {
     public StoreService(StoreRepository storeRepository) {
         this.storeRepository = storeRepository;
     }
+    
     public List<Store> findAll() {
         return storeRepository.findAll();
     }
+    
     public Store findById(Long id) {
         return storeRepository.findById(id).orElse(null);
     }
+    
     public Store save(Store store) {
         return storeRepository.save(store);
     }
+    
     public void deleteById(Long id) {
         storeRepository.deleteById(id);
     }

@@ -16,9 +16,11 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Products product;
+    
     @ManyToOne
     @JoinColumn(name = "store_id")
     private Store store;
@@ -28,36 +30,47 @@ public class Order {
     public Long getId() {
         return id;
     }
+    
     public Products getProduct() {
         return product;
     }
+    
     public Store getStore() {
         return store;
     }
+    
     public Integer getQuantity() {
         return quantity;
     }
+    
     public LocalDate getOrderDate() {
         return orderDate;
     }
+    
     public String getStatus() {
         return status;
     }
+    
     public void setId(Long id) {
         this.id = id;
     }
+    
     public void setProduct(Products product) {
         this.product = product;
     }
+    
     public void setStore(Store store) {
         this.store = store;
     }
+    
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
+    
     public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
+    
     public void setStatus(String status) {
         this.status = status;
     }

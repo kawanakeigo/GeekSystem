@@ -31,6 +31,7 @@ public class OrderController {
         this.storeRepository = storeRepository;
         this.categoryService = categoryService;
     }
+    
     @GetMapping("/new")
     public String showOrderForm(Model model) {
         model.addAttribute("categories", categoryService.getParentCategories());
@@ -39,11 +40,13 @@ public class OrderController {
         model.addAttribute("orderForm", new OrderForm());
         return "order-form";
     }
+    
     @PostMapping
     public String createOrder(@Valid @ModelAttribute ("orderForm") OrderForm orderForm) {
         orderService.createOrder(orderForm.getProductId(), orderForm.getStoreId(), orderForm.getQuantity());
         return "redirect:/orders";
     }
+    
     @GetMapping
     public String listOrders(Model model) {
         model.addAttribute("orders", orderService.findAllOrders());

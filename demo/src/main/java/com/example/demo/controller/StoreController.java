@@ -14,9 +14,10 @@ public class StoreController {
     public StoreController(StoreRepository storeRepository) {
         this.storeRepository = storeRepository;
     }
+    
     @GetMapping
     public String getAllStores(Model model) {
         model.addAttribute("stores", storeRepository.findAll());
-        return "store-list"; // resources/templates/store-list.html を返す
+        return "store-list"; 
     }
 }

@@ -8,14 +8,20 @@ import jakarta.validation.constraints.Size;
 
 public class AdminForm {
 	private Long id;
+	
     @NotBlank(message = "名前は必須です")
     @Size(max = 50, message = "50文字以内で入力してください")
     private String name;
+    
     @NotBlank(message = "メールアドレスは必須です")
     @Email(message = "メールアドレスの形式で入力してください")
     @Size(max = 50 , message = "50文字以内で入力してください")
     private String email;
+    
+    @NotNull(message = "パスワードを入力してください")
+    @Size(max =20,min =8,message ="８文字以上２０字以内で入力してください")
     private String password; 
+    
     @NotNull(message = "役職を選択してください")
     private Long roleId;
     public Long getId() { return id; }

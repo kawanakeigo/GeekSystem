@@ -18,6 +18,7 @@ public class SecurityConfig {
     public SecurityConfig(AdminDetailsService adminDetailsService) {
         this.adminDetailsService = adminDetailsService;
     }
+    
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -37,6 +38,7 @@ public class SecurityConfig {
             );
         return http.build();
     }
+    
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -44,6 +46,7 @@ public class SecurityConfig {
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
+    
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();

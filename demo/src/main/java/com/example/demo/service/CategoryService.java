@@ -13,9 +13,11 @@ public class CategoryService {
     public CategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
+    
     public List<Category> getParentCategories() {
         return categoryRepository.findByParentIsNull();
     }
+    
     public List<Category> getChildCategories(Long parentId) {
         return categoryRepository.findByParentId(parentId);
     }
