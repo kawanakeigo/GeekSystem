@@ -10,14 +10,13 @@
   <form th:action="@{/admins/new}" th:object="${adminForm}" method="post">
     <input type="hidden" th:field="*{id}" />
     <label>名前：</label>
-    <input type="text" th:field="*{name}" required/><br/>
+    <input type="text" th:field="*{name}" required/>
     <label>役職：</label>
     <select th:field="*{roleId}" required>
       <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
     </select>
     <label>メールアドレス：</label>
-    <input type="email" th:field="*{email}" required/><br/>
-    <br/>
+    <input type="email" th:field="*{email}" required/>
     <button type="submit">保存</button>
   </form>
   <a href="/admins">戻る</a>
