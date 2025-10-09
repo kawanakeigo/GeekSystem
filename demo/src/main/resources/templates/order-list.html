@@ -14,6 +14,7 @@
         <th>店舗名</th>
         <th>数量</th>
         <th>発注日</th>
+		<th>更新日時</th>
         <th>ステータス</th>
       </tr>
     </thead>
@@ -22,7 +23,8 @@
         <td th:text="${order.product.name}">商品名</td>
         <td th:text="${order.store != null ? order.store.name : '未設定'}">店舗名</td>
         <td th:text="${order.quantity}">数量</td>
-        <td th:text="${#temporals.format(order.orderDate, 'yyyy-MM-dd')}">発注日</td>
+        <td th:text="${#temporals.format(order.createdAt, 'yyyy-MM-dd')}">発注日</td>
+		<td th:text="${#temporals.format(order.updatedAt, 'yyyy-MM-dd')}">更新日</td>
         <td th:text="${order.status}">ステータス</td>
       </tr>
     </tbody>

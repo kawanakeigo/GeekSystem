@@ -1,10 +1,11 @@
 package com.example.demo.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.entity.Admin;
 import com.example.demo.entity.Order;
 import com.example.demo.entity.Products;
 import com.example.demo.entity.Store;
@@ -27,10 +28,10 @@ public class OrderService {
     }
     
     public List<Order> findAllOrders() {
-        return orderRepository.findAllByOrderByOrderDateDesc();
+        return orderRepository.findAllByOrderByCreatedAtDesc();
     }
-    
-    public Order createOrder(Long productId, Long storeId, int quantity) {
+    @Transactional
+    public Order createOrder(Long productId, Long storeId, Long quantity) {
         Products product = productRepository.findById(productId)
                             .orElseThrow(() -> new IllegalArgumentException("商品が見つかりません"));
         Store store = storeRepository.findById(storeId)
@@ -40,8 +41,12 @@ public class OrderService {
         order.setProduct(product);
         order.setStore(store);
         order.setQuantity(quantity);
-        order.setOrderDate(LocalDate.now());    
-        order.setStatus("発注済み");               
+        order.setStatus("発注済み");  
+        
+        Admin admin = new Admin();
+        admin.setId(1L);
+        order.setAdmin(admin);
+           
         return orderRepository.save(order);
     }
 }

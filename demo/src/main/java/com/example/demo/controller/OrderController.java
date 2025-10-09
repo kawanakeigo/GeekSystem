@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.form.OrderForm;
+import com.example.demo.repository.LargeCategoryRepository;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.repository.StoreRepository;
-import com.example.demo.service.CategoryService;
 import com.example.demo.service.OrderService;
 
 @Controller
@@ -21,20 +21,21 @@ public class OrderController {
     private final OrderService orderService;
     private final ProductRepository productRepository;
     private final StoreRepository storeRepository;
-    private final CategoryService categoryService; 
+    private final LargeCategoryRepository largeCategoryRepository;
     public OrderController(OrderService orderService,
                            ProductRepository productRepository,
                            StoreRepository storeRepository,
-                           CategoryService categoryService) {
+                           LargeCategoryRepository largeCategoryRepository
+                           ) {
         this.orderService = orderService;
         this.productRepository = productRepository;
         this.storeRepository = storeRepository;
-        this.categoryService = categoryService;
+        this.largeCategoryRepository = largeCategoryRepository;
     }
     
     @GetMapping("/new")
     public String showOrderForm(Model model) {
-        model.addAttribute("categories", categoryService.getParentCategories());
+        model.addAttribute("categories", largeCategoryRepository.findAll());
         model.addAttribute("products", productRepository.findAll());
         model.addAttribute("stores", storeRepository.findAll());
         model.addAttribute("orderForm", new OrderForm());

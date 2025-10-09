@@ -14,11 +14,12 @@ public class OrderForm {
 	@NotNull
     @Min(value = 1)
     @Max(value = 1000)
-    private Integer quantity;
+    private Long quantity;
+	
+	//以下getter・setter
     public Long getProductId() {
         return productId;
     }
-    
     public void setProductId(Long productId) {
         this.productId = productId;
     }
@@ -26,16 +27,14 @@ public class OrderForm {
     public Long getStoreId() {
         return storeId;
     }
-    
     public void setStoreId(Long storeId) {
         this.storeId = storeId;
     }
     
-    public Integer getQuantity() {
+    public Long getQuantity() {
         return quantity;
     }
-    
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(Long quantity) {
         this.quantity = quantity;
     }
 }
