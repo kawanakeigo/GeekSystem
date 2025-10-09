@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,7 +65,15 @@ public class AdminController {
 
     // 新規作成処理
     @PostMapping("/new")
-    public String createAdmin(@Valid @ModelAttribute("adminForm") AdminForm form) {
+    public String createAdmin(@Valid @ModelAttribute("adminForm") AdminForm form, BindingResult result,Model model) {
+    	
+    	if(result.hasErrors()) {
+    		model.addAttribute("roles", roleRepository.findAll());
+            model.addAttribute("stores", storeRepository.findAll());
+            model.addAttribute("authorities", authoritiesRepository.findAll());
+    		return "admin-form";
+    	}
+    	
         adminService.create(form);
         return "redirect:/admins";
     }
@@ -95,7 +104,15 @@ public class AdminController {
 
     // 編集処理
     @PostMapping("/{id}/edit")
-    public String updateAdmin(@PathVariable Long id, @ModelAttribute("adminForm") AdminForm form) {
+    public String updateAdmin(@PathVariable Long id, @Valid @ModelAttribute("adminForm") AdminForm form,BindingResult result,Model model) {
+    	
+    	if(result.hasErrors()) {
+    		model.addAttribute("roles", roleRepository.findAll());
+            model.addAttribute("stores", storeRepository.findAll());
+            model.addAttribute("authorities", authoritiesRepository.findAll());
+    		return "admin-form";
+    	}
+    	
         adminService.update(id, form);
         return "redirect:/admins/" + id;
     }
