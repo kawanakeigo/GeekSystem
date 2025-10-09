@@ -1,7 +1,5 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
 import jakarta.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -13,78 +11,99 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.entity.Admin;
-import com.example.demo.entity.Role;
 import com.example.demo.form.AdminForm;
-import com.example.demo.repository.AdminRepository;
+import com.example.demo.repository.AuthoritiesRepository;
 import com.example.demo.repository.RoleRepository;
+import com.example.demo.repository.StoreRepository;
+import com.example.demo.service.AdminService;
 
 @Controller
 @RequestMapping("/admins")
 public class AdminController {
-    private final AdminRepository adminRepository;
+
+    private final AdminService adminService;
     private final RoleRepository roleRepository;
-    public AdminController(AdminRepository adminRepository, RoleRepository roleRepository) {
-        this.adminRepository = adminRepository;
+    private final StoreRepository storeRepository;
+    private final AuthoritiesRepository authoritiesRepository;
+
+    public AdminController(
+    		AdminService adminService,
+    		RoleRepository roleRepository,
+    		StoreRepository storeRepository,
+    		AuthoritiesRepository authoritiesRepository
+    		) {
+        this.adminService = adminService;
         this.roleRepository = roleRepository;
+        this.storeRepository= storeRepository;
+        this.authoritiesRepository = authoritiesRepository;
     }
-    
+
+    // 一覧
     @GetMapping
     public String listAdmins(Model model) {
-        List<Admin> admins = adminRepository.findAll();
-        model.addAttribute("admins", admins);
+        model.addAttribute("admins", adminService.getAllAdmins());
         return "admin-list";
     }
-    
+
+    // 詳細
+    @GetMapping("/{id}")
+    public String detail(@PathVariable Long id, Model model) {
+        model.addAttribute("admin", adminService.getAdmin(id));
+        return "admins-detail";
+    }
+
+    // 新規作成フォーム
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("adminForm", new AdminForm());
         model.addAttribute("roles", roleRepository.findAll());
+        model.addAttribute("stores", storeRepository.findAll());
+        model.addAttribute("authorities", authoritiesRepository.findAll());
         return "admin-form";
     }
-    
+
+    // 新規作成処理
     @PostMapping("/new")
-    public String createAdmin(@Valid @ModelAttribute ("adominForm")  AdminForm form) {
-        Admin admin = new Admin();
-        admin.setName(form.getName());
-        admin.setEmail(form.getEmail());
-        admin.setPassword(form.getPassword());
-        Role role = roleRepository.findById(form.getRoleId()).orElse(null);
-        admin.setRole(role);
-        adminRepository.save(admin);
+    public String createAdmin(@Valid @ModelAttribute("adminForm") AdminForm form) {
+        adminService.create(form);
         return "redirect:/admins";
     }
-    
-    @GetMapping("/edit/{id}")
+
+    // 編集フォーム
+    @GetMapping("/{id}/edit")
     public String showEditForm(@PathVariable Long id, Model model) {
-        Admin admin = adminRepository.findById(id).orElse(null);
+        Admin admin = adminService.getAdmin(id);
         if (admin == null) {
             return "redirect:/admins";
         }
         AdminForm form = new AdminForm();
         form.setId(admin.getId());
-        form.setName(admin.getName());
+        form.setFirstName(admin.getFirstName());
+        form.setLastName(admin.getLastName());
         form.setEmail(admin.getEmail());
+        form.setPhonenumber(admin.getPhonenumber());
         form.setRoleId(admin.getRole().getId());
+        form.setStoreId(admin.getStore().getId());
+        form.setAuthoritiesId(admin.getAuthoritiesId());
+
         model.addAttribute("adminForm", form);
         model.addAttribute("roles", roleRepository.findAll());
+        model.addAttribute("stores", storeRepository.findAll());
+        model.addAttribute("authorities", authoritiesRepository.findAll());
         return "admin-form";
     }
-    
-    
-    @PostMapping("/update")
-    public String updateAdmin(@ModelAttribute AdminForm form) {
-        Admin admin = adminRepository.findById(form.getId()).orElse(null);
-        if (admin == null) {
-            return "redirect:/admins"; 
-        }
-        admin.setName(form.getName());
-        admin.setEmail(form.getEmail());
-        if (form.getPassword() != null && !form.getPassword().isEmpty()) {
-            admin.setPassword(form.getPassword());
-        }
-        Role role = roleRepository.findById(form.getRoleId()).orElse(null);
-        admin.setRole(role);
-        adminRepository.save(admin);
+
+    // 編集処理
+    @PostMapping("/{id}/edit")
+    public String updateAdmin(@PathVariable Long id, @ModelAttribute("adminForm") AdminForm form) {
+        adminService.update(id, form);
+        return "redirect:/admins/" + id;
+    }
+
+    // 削除
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable Long id) {
+        adminService.delete(id);
         return "redirect:/admins";
     }
 }
