@@ -37,12 +37,12 @@ public class MakerController {
         return "redirect:/makers";
     }
     
-    @GetMapping("/edit/{id}")
+    @GetMapping("{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
         Makers maker = makerRepository.findById(id).orElse(null);
         if (maker == null) return "redirect:/makers";
         model.addAttribute("maker", maker);
-        return "maker-form";
+        return "maker-detail";
     }
     
     @PostMapping("/update")
