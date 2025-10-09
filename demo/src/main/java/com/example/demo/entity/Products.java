@@ -12,16 +12,23 @@ public class Products {
     private Long id;
     private String name;
     
-    @Column(name = "category_id")
-    private Long categoryId;
+    @Column(name = "large_categories_id")
+    private Long largeCategoryId;
     
-    @Column(name = "maker_id")
+    @Column(name = "middle_categories_id")
+    private Long middleCategoryId;
+    
+    @Column(name = "small_categories_id")
+    private Long smallCategoryId;
+    
+    @Column(name = "makers_id")
     private Long makerId;
+    
     private Double price;
     
-    @Column(name = "stock_quantity")
-    private Integer stockQuantity;
     private String description;
+    
+    //以下getter・setter
     public Long getId() {
         return id;
     }
@@ -30,8 +37,16 @@ public class Products {
         return name;
     }
     
-    public Long getCategoryId() {
-        return categoryId;
+    public Long getLarge_categories_Id() {
+        return largeCategoryId;
+    }
+    
+    public Long getMiddle_categories_Id() {
+        return middleCategoryId;
+    }
+    
+    public Long getSmall_categories_Id() {
+        return smallCategoryId;
     }
     
     public Long getMakerId() {
@@ -40,10 +55,6 @@ public class Products {
     
     public Double getPrice() {
         return price;
-    }
-    
-    public Integer getStockQuantity() {
-        return stockQuantity;
     }
     
     public String getDescription() {

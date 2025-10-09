@@ -14,8 +14,8 @@ public class ProductService {
         this.productRepository = productRepository;
     }
     
-    public List<Products> getProductsByCategoryId(Long categoryId) {
-        return productRepository.findByCategoryId(categoryId);
+    public List<Products> getProductsByLargeCategoryId(Long categoryId) {
+        return productRepository.findByLargeCategoryId(categoryId);
     }
     
     public Products findById(Long id) {
