@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>大カテゴリ一覧</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+	<h1>大カテゴリ一覧</h1>
+	<ul>
+	  <li th:each="cat : ${largeCategories}">
+	    <a th:href="@{/categories/large/{id}(id=${cat.id})}" th:text="${cat.id}"></a>
+	  </li>
+	</ul>
+	<li><a th:href="@{/}">Topページへ</a></li>
+</body>
+</html>

@@ -1,0 +1,38 @@
+package com.example.demo.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "middle_categories")
+public class Middle_Categories {
+	@Id
+    private Long id;
+    private String name;
+    private Long largeCategoriesId;
+    
+    //以下getter_setter
+    
+    public Long getId() { 
+    	return id;
+    }
+    public void setId(Long id) {
+    	this.id = id; 
+    }
+    
+    public String getName() {
+    	return name; 
+    }
+    public void setName(String name) { 
+    	this.name = name;
+    }
+    
+    public Long getLargeCategoriesId() { 
+    	return largeCategoriesId; 
+    }
+    public void setLargeCategoriesId(Long largeCategoriesId) {
+    	this.largeCategoriesId = largeCategoriesId;
+    }
+
+}
