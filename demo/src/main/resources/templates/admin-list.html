@@ -20,15 +20,15 @@
         <tbody>
             <tr th:each="admin : ${admins}">
                 <td th:text="${admin.id}">ID</td>
-                <td th:text="${admin.name}">名前</td>
+				<td th:text="${admin.firstName + ' ' + admin.lastName}">名前</td>
                 <td th:text="${admin.email}">メール</td>
                 <td th:text="${admin.role.name}">役職</td>
                 <td>
-                    <a th:href="@{'/admins/edit/' + ${admin.id}}">編集</a>
+                    <a th:href="@{/admins/{id}/edit(id=${admin.id})}">編集</a>
                 </td>
             </tr>
         </tbody>
     </table>
-
+	<li><a th:href="@{/}">Topページへ</a></li>
 </body>
 </html>
