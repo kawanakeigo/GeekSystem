@@ -16,7 +16,6 @@ import com.example.demo.entity.Small_Categories;
 import com.example.demo.service.CategoryService;
 
 
-
 @Controller
 @RequestMapping("/categories")
 public class CategoryController {
