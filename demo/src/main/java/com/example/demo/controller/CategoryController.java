@@ -13,45 +13,34 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.entity.LargeCategory;
 import com.example.demo.entity.Middle_Categories;
 import com.example.demo.entity.Small_Categories;
-import com.example.demo.repository.LargeCategoryRepository;
-import com.example.demo.repository.Middle_CategoriesRepository;
-import com.example.demo.repository.Small_CategoriesRepository;
+import com.example.demo.service.CategoryService;
 
 
 
 @Controller
 @RequestMapping("/categories")
 public class CategoryController {
-    private final LargeCategoryRepository largeRepo;
-    private final Middle_CategoriesRepository middleRepo;
-    private final Small_CategoriesRepository smallRepo;
+    private final CategoryService categoryService;
     
     public CategoryController(
-    		LargeCategoryRepository largeRepo,
-    		Middle_CategoriesRepository middleRepo,
-    		Small_CategoriesRepository smallRepo
+    		CategoryService categoryService
     		) {
-        this.largeRepo = largeRepo;
-        this.middleRepo = middleRepo;
-        this.smallRepo = smallRepo;
+        this.categoryService = categoryService;
     }
     
     @GetMapping("/large")
     public String listLargeCategory(Model model) {
-        List<LargeCategory> largeCategories = largeRepo.findAll();
+        List<LargeCategory> largeCategories = categoryService.findAll();
         model.addAttribute("largeCategories", largeCategories);
         return "large-categories-list"; 
     }
     
     @GetMapping("/large/{id}")
     public String detailLargeCategory(@PathVariable Long id, Model model) {
-        LargeCategory large = largeRepo.findById(id).orElse(null);
+        LargeCategory large = categoryService.getLargeCategoryById(id).orElse(null);
         if (large == null) return "redirect:/categories/large";
 
-        List<Middle_Categories> middleList = middleRepo.findAll()
-                .stream()
-                .filter(m -> m.getLargeCategoriesId().equals(id))
-                .toList();
+        List<Middle_Categories> middleList =categoryService.getMiddleCategoriesByLargeId(id);
 
         model.addAttribute("largeCategory", large);
         model.addAttribute("middleCategories", middleList);
@@ -60,13 +49,10 @@ public class CategoryController {
     
     @GetMapping("/middle/{id}")
     public String detailMiddleCategory(@PathVariable Long id, Model model) {
-        Middle_Categories middle = middleRepo.findById(id).orElse(null);
+    	Middle_Categories middle = categoryService.getMiddleCategoryById(id).orElse(null);
         if (middle == null) return "redirect:/categories/large";
 
-        List<Small_Categories> smallList = smallRepo.findAll()
-                .stream()
-                .filter(s -> s.getMiddleCategoriesId().equals(id))
-                .toList();
+        List<Small_Categories> smallList = categoryService.getSmallCategoryByMiddleId(id);
 
         model.addAttribute("middleCategory", middle);
         model.addAttribute("smallCategories", smallList);
@@ -75,7 +61,7 @@ public class CategoryController {
     
     @GetMapping("/small/{id}")
     public String detailSmallCategory(@PathVariable Long id, Model model) {
-        Small_Categories small = smallRepo.findById(id).orElse(null);
+        Small_Categories small = categoryService.getSmallCategoryById(id).orElse(null);
         if (small == null) return "redirect:/categories/large";
 
         model.addAttribute("smallCategory", small);
@@ -84,14 +70,7 @@ public class CategoryController {
     
     @GetMapping("/children")
     @ResponseBody
-    public List<?> getChildCategories(@RequestParam("parentId")Long parentId){
-    	if(middleRepo.existsByLargeCategoriesId(parentId)) {
-    		return middleRepo.findByLargeCategoriesId(parentId);
-    	}
-    	
-    	if(smallRepo.existsByMiddleCategoriesId(parentId)) {
-    		return smallRepo.findByMiddleCategoriesId(parentId);
-    	}
-    	return List.of();
+    public List<?> getChildCategories(@RequestParam("parentId") Long parentId) {
+        return categoryService.getChildCategories(parentId);
     }
 }
