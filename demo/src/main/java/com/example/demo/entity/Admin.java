@@ -35,7 +35,6 @@ public class Admin {
     @JoinColumn(name = "stores_id")
     private Store store;
     
-    @ManyToOne
     @JoinColumn(name = "roles_id") 
     private Role role;
     

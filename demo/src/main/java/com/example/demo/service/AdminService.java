@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Admin;
+import com.example.demo.entity.Authorities;
 import com.example.demo.entity.Role;
 import com.example.demo.entity.Store;
 import com.example.demo.form.AdminForm;
@@ -36,6 +37,18 @@ public class AdminService {
 
     public List<Admin> getAllAdmins() {
         return adminRepository.findAll();
+    }
+    
+    public List<Store> getAllStores() {
+        return storeRepository.findAll();
+    }
+    
+    public List<Authorities> getAllAuthorities() {
+        return authoritiesRepository.findAll();
+    }
+    
+    public List<Role> getAllRoll() {
+        return roleRepository.findAll();
     }
 
     public Admin getAdmin(Long id) {

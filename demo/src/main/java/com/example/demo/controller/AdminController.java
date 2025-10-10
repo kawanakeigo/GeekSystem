@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.entity.Admin;
 import com.example.demo.form.AdminForm;
-import com.example.demo.repository.AuthoritiesRepository;
-import com.example.demo.repository.RoleRepository;
-import com.example.demo.repository.StoreRepository;
 import com.example.demo.service.AdminService;
 
 @Controller
@@ -23,20 +20,14 @@ import com.example.demo.service.AdminService;
 public class AdminController {
 
     private final AdminService adminService;
-    private final RoleRepository roleRepository;
-    private final StoreRepository storeRepository;
-    private final AuthoritiesRepository authoritiesRepository;
+    
 
     public AdminController(
-    		AdminService adminService,
-    		RoleRepository roleRepository,
-    		StoreRepository storeRepository,
-    		AuthoritiesRepository authoritiesRepository
+    		AdminService adminService
+    		
     		) {
         this.adminService = adminService;
-        this.roleRepository = roleRepository;
-        this.storeRepository= storeRepository;
-        this.authoritiesRepository = authoritiesRepository;
+        
     }
 
     // 一覧
@@ -57,9 +48,9 @@ public class AdminController {
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("adminForm", new AdminForm());
-        model.addAttribute("roles", roleRepository.findAll());
-        model.addAttribute("stores", storeRepository.findAll());
-        model.addAttribute("authorities", authoritiesRepository.findAll());
+        model.addAttribute("roles", adminService.getAllRoll());
+        model.addAttribute("stores", adminService.getAllStores());
+        model.addAttribute("authorities", adminService.getAllAuthorities());
         return "admin-form";
     }
 
@@ -68,9 +59,9 @@ public class AdminController {
     public String createAdmin(@Valid @ModelAttribute("adminForm") AdminForm form, BindingResult result,Model model) {
     	
     	if(result.hasErrors()) {
-    		model.addAttribute("roles", roleRepository.findAll());
-            model.addAttribute("stores", storeRepository.findAll());
-            model.addAttribute("authorities", authoritiesRepository.findAll());
+    		model.addAttribute("roles", adminService.getAllRoll());
+            model.addAttribute("stores", adminService.getAllStores());
+            model.addAttribute("authorities", adminService.getAllAuthorities());
     		return "admin-form";
     	}
     	
@@ -96,9 +87,9 @@ public class AdminController {
         form.setAuthoritiesId(admin.getAuthoritiesId());
 
         model.addAttribute("adminForm", form);
-        model.addAttribute("roles", roleRepository.findAll());
-        model.addAttribute("stores", storeRepository.findAll());
-        model.addAttribute("authorities", authoritiesRepository.findAll());
+        model.addAttribute("roles", adminService.getAllRoll());
+        model.addAttribute("stores", adminService.getAllStores());
+        model.addAttribute("authorities", adminService.getAllAuthorities());
         return "admin-form";
     }
 
@@ -107,9 +98,9 @@ public class AdminController {
     public String updateAdmin(@PathVariable Long id, @Valid @ModelAttribute("adminForm") AdminForm form,BindingResult result,Model model) {
     	
     	if(result.hasErrors()) {
-    		model.addAttribute("roles", roleRepository.findAll());
-            model.addAttribute("stores", storeRepository.findAll());
-            model.addAttribute("authorities", authoritiesRepository.findAll());
+    		model.addAttribute("roles", adminService.getAllRoll());
+            model.addAttribute("stores", adminService.getAllStores());
+            model.addAttribute("authorities", adminService.getAllAuthorities());
     		return "admin-form";
     	}
     	
