@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.entity.Makers;
-import com.example.demo.repository.MakerRepository;
+import com.example.demo.service.MakerService;
 
 @Controller
 @RequestMapping("/makers")
 public class MakerController {
-	private final MakerRepository makerRepository;
-	public MakerController(MakerRepository makerRepository) {
-        this.makerRepository = makerRepository;
+	private final MakerService makerService;
+	public MakerController(MakerService makerService) {
+        this.makerService = makerService;
     }
 	
 	@GetMapping
     public String listMakers(Model model) {
-        model.addAttribute("makers", makerRepository.findAll());
+        model.addAttribute("makers", makerService.getAllMakers());
         return "maker-list";
     }
 	
@@ -33,13 +33,13 @@ public class MakerController {
 	
     @PostMapping("/new")
     public String createMaker(@ModelAttribute Makers maker) {
-        makerRepository.save(maker);
+        makerService.createMaker(maker);
         return "redirect:/makers";
     }
     
     @GetMapping("{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
-        Makers maker = makerRepository.findById(id).orElse(null);
+        Makers maker = makerService.getMakerById(id);
         if (maker == null) return "redirect:/makers";
         model.addAttribute("maker", maker);
         return "maker-detail";
@@ -47,13 +47,13 @@ public class MakerController {
     
     @PostMapping("/update")
     public String updateMaker(@ModelAttribute Makers maker) {
-        makerRepository.save(maker);
+        makerService.updateMaker(maker);
         return "redirect:/makers";
     }
     
     @PostMapping("/delete/{id}")
     public String deleteMaker(@PathVariable Long id) {
-        makerRepository.deleteById(id);
+        makerService.deleteMaker(id);
         return "redirect:/makers";
     }
 }

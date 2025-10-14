@@ -37,7 +37,6 @@ public class ProductController {
     	
          products = productService.findByMiddleCategoryId(categoryId);
          if (!products.isEmpty()) return products;
-         
     	
         return productService.findByLargeCategoryId(categoryId);
     }
