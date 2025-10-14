@@ -2,9 +2,11 @@ package com.example.demo.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.example.demo.DTO.CategoryDTO;
 import com.example.demo.entity.LargeCategory;
 import com.example.demo.entity.Middle_Categories;
 import com.example.demo.entity.Small_Categories;
@@ -75,12 +77,20 @@ public class CategoryService {
         return smallCategoryRepository.findById(id);
     }
     
-    public List<?> getChildCategories(Long parentId) {
+
+    //DTO変換
+    public List<CategoryDTO> getChildCategories(Long parentId) {
         if (existsByLargeCategoriesId(parentId)) {
-            return getMiddleCategoriesByLargeId(parentId);
+        return getMiddleCategoriesByLargeId(parentId)
+                .stream()
+                .map(middle -> new CategoryDTO(middle.getId(), middle.getName()))
+                .collect(Collectors.toList());
         }
         if (existsByMiddleCategoriesId(parentId)) {
-            return getSmallCategoryByMiddleId(parentId);
+        	return getSmallCategoryByMiddleId(parentId)
+                    .stream()
+                    .map(small -> new CategoryDTO(small.getId(), small.getName()))
+                    .collect(Collectors.toList());
         }
         return List.of();
     }

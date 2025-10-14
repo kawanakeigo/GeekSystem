@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.DTO.CategoryDTO;
 import com.example.demo.entity.LargeCategory;
 import com.example.demo.entity.Middle_Categories;
 import com.example.demo.entity.Small_Categories;
@@ -69,7 +70,7 @@ public class CategoryController {
     
     @GetMapping("/children")
     @ResponseBody
-    public List<?> getChildCategories(@RequestParam("parentId") Long parentId) {
+    public List<CategoryDTO> getChildCategories(@RequestParam("parentId") Long parentId) {
         return categoryService.getChildCategories(parentId);
     }
 }
