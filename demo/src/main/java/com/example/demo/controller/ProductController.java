@@ -10,24 +10,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.entity.Products;
-import com.example.demo.repository.ProductRepository;
+import com.example.demo.service.ProductService;
 
 @Controller
 @RequestMapping("/products")
 
 public class ProductController {
-    private final ProductRepository productRepository;
-    public ProductController(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    private final ProductService productService;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
     
-    public List<Products> getProductsByCategoryId(Long categoryId) {
-        return productRepository.findByLargeCategoryId(categoryId);
-    }
 
     @GetMapping
     public String getAllProducts(Model model) {
-        model.addAttribute("products", productRepository.findAll());
+        model.addAttribute("products", productService.getAllProducts());
         return "product-list"; 
     }
     
@@ -35,13 +32,13 @@ public class ProductController {
     @ResponseBody
     public List<Products> getProductsByCategory(@RequestParam Long categoryId) {
     	
-    	 List<Products> products = productRepository.findBySmallCategoryId(categoryId);
+    	 List<Products> products = productService.findBySmallCategoryId(categoryId);
          if (!products.isEmpty()) return products;
     	
-         products = productRepository.findByMiddleCategoryId(categoryId);
+         products = productService.findByMiddleCategoryId(categoryId);
          if (!products.isEmpty()) return products;
          
     	
-        return productRepository.findByLargeCategoryId(categoryId);
+        return productService.findByLargeCategoryId(categoryId);
     }
 }
