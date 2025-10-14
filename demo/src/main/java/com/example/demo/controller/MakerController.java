@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.DTO.MakerDTO;
 import com.example.demo.entity.Makers;
 import com.example.demo.service.MakerService;
 
@@ -39,7 +40,7 @@ public class MakerController {
     
     @GetMapping("{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
-        Makers maker = makerService.getMakerById(id);
+        MakerDTO maker = makerService.getMakerById(id);
         if (maker == null) return "redirect:/makers";
         model.addAttribute("maker", maker);
         return "maker-detail";

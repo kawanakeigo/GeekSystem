@@ -1,9 +1,11 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import jakarta.transaction.Transactional;
 
+import com.example.demo.DTO.MakerDTO;
 import com.example.demo.entity.Makers;
 import com.example.demo.repository.MakerRepository;
 
@@ -14,13 +16,26 @@ public class MakerService {
         this.makerRepository = makerRepository;
     }
     
-    public List<Makers> getAllMakers() {
-        return makerRepository.findAll();
+    private MakerDTO convertToDTO(Makers maker) {
+        MakerDTO dto = new MakerDTO();
+        dto.setId(maker.getId());
+        dto.setName(maker.getName());
+        return dto;
     }
     
-    public Makers getMakerById(Long id) {
-        return makerRepository.findById(id).orElse(null);
+    public List<MakerDTO> getAllMakers() {
+        return makerRepository.findAll()
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
+    
+    public MakerDTO getMakerById(Long id) {
+        return makerRepository.findById(id)
+                .map(this::convertToDTO)
+                .orElse(null);
+    }
+    
     
     //新規作成
     @Transactional
