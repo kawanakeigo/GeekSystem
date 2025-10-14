@@ -9,23 +9,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.entity.Store;
-import com.example.demo.repository.StoreRepository;
 import com.example.demo.service.StoreService;
 
 @Controller
 @RequestMapping("/stores")
 public class StoreController {
-    private final StoreRepository storeRepository;
     private final StoreService storeService;
     
-    public StoreController(StoreRepository storeRepository ,StoreService storeService) {
-        this.storeRepository = storeRepository;
+    public StoreController(StoreService storeService) {
         this.storeService = storeService;
     }
     
     @GetMapping
     public String getAllStores(Model model) {
-        model.addAttribute("stores", storeRepository.findAll());
+        model.addAttribute("stores", storeService.findAll());
         return "store-list"; 
     }
     
