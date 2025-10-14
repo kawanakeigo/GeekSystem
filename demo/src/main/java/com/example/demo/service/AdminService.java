@@ -1,11 +1,13 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import jakarta.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.example.demo.DTO.AdminDTO;
 import com.example.demo.entity.Admin;
 import com.example.demo.entity.Authorities;
 import com.example.demo.entity.Role;
@@ -35,9 +37,7 @@ public class AdminService {
         this.authoritiesRepository = authoritiesRepository;
     }
 
-    public List<Admin> getAllAdmins() {
-        return adminRepository.findAll();
-    }
+
     
     public List<Store> getAllStores() {
         return storeRepository.findAll();
@@ -51,12 +51,37 @@ public class AdminService {
         return roleRepository.findAll();
     }
 
-    public Admin getAdmin(Long id) {
-        return adminRepository.findById(id).orElse(null);
-    }
+
 
     public void save(Admin admin) {
         adminRepository.save(admin);
+    }
+    
+    //EntityをDTOに変換
+    private AdminDTO convertToDTO(Admin admin) {
+        AdminDTO dto = new AdminDTO();
+        dto.setId(admin.getId());
+        dto.setFirstName(admin.getFirstName());
+        dto.setLastName(admin.getLastName());
+        dto.setEmail(admin.getEmail());
+        dto.setPhonenumber(admin.getPhonenumber());
+        dto.setRole(admin.getRole());
+        dto.setStore(admin.getStore());
+        dto.setAuthoritiesId(admin.getAuthoritiesId());
+        return dto;
+    }
+    
+    public List<AdminDTO> getAllAdmins() {
+        return adminRepository.findAll()
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+    
+    public AdminDTO getAdmin(Long id) {
+        return adminRepository.findById(id)
+                .map(this::convertToDTO)
+                .orElse(null);
     }
     
     //新規作成
@@ -98,9 +123,7 @@ public class AdminService {
 		
 		Role role =roleRepository.findById(form.getRoleId()).orElse(null);
 		admin.setRole(role);
-		
-		
-		
+	
 		return adminRepository.save(admin);
     }
     

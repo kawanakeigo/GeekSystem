@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.entity.Admin;
+import com.example.demo.DTO.AdminDTO;
 import com.example.demo.form.AdminForm;
 import com.example.demo.service.AdminService;
 
@@ -20,7 +20,6 @@ import com.example.demo.service.AdminService;
 public class AdminController {
 
     private final AdminService adminService;
-    
 
     public AdminController(
     		AdminService adminService
@@ -72,19 +71,19 @@ public class AdminController {
     // 編集フォーム
     @GetMapping("/{id}/edit")
     public String showEditForm(@PathVariable Long id, Model model) {
-        Admin admin = adminService.getAdmin(id);
-        if (admin == null) {
+        AdminDTO adminDto = adminService.getAdmin(id);
+        if (adminDto == null) {
             return "redirect:/admins";
         }
         AdminForm form = new AdminForm();
-        form.setId(admin.getId());
-        form.setFirstName(admin.getFirstName());
-        form.setLastName(admin.getLastName());
-        form.setEmail(admin.getEmail());
-        form.setPhonenumber(admin.getPhonenumber());
-        form.setRoleId(admin.getRole().getId());
-        form.setStoreId(admin.getStore().getId());
-        form.setAuthoritiesId(admin.getAuthoritiesId());
+        form.setId(adminDto.getId());
+        form.setFirstName(adminDto.getFirstName());
+        form.setLastName(adminDto.getLastName());
+        form.setEmail(adminDto.getEmail());
+        form.setPhonenumber(adminDto.getPhonenumber());
+        form.setRoleId(adminDto.getRole().getId());
+        form.setStoreId(adminDto.getStore().getId());
+        form.setAuthoritiesId(adminDto.getAuthoritiesId());
 
         model.addAttribute("adminForm", form);
         model.addAttribute("roles", adminService.getAllRoll());
