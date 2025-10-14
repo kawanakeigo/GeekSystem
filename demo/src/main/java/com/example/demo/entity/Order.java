@@ -34,6 +34,15 @@ public class Order {
     
     private Long quantity;
     
+    @Column(name = "large_categories_id")
+    private Long largeCategoryId;
+    
+    @Column(name = "middle_categories_id")
+    private Long middleCategoryId;
+    
+    @Column(name = "small_categories_id")
+    private Long smallCategoryId;
+    
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
@@ -109,5 +118,26 @@ public class Order {
     }
     public void setUpdatedAt(LocalDateTime updatedAt) {
     	this.updatedAt = updatedAt;
+    }
+    
+    public Long getLarge_categories_Id() {
+        return largeCategoryId;
+    }
+    public void setLarge_categories_Id(Long largeCategoryId) {
+        this.largeCategoryId = largeCategoryId;
+    }
+    
+    public Long getMiddle_categories_Id() {
+        return middleCategoryId;
+    }
+    public void setMiddle_categories_Id(Long middleCategoryId) {
+        this.middleCategoryId = middleCategoryId;
+    }
+    
+    public Long getSmall_categories_Id() {
+        return smallCategoryId;
+    }
+    public void setSmall_categories_Id(Long smallCategoryId) {
+        this.smallCategoryId = smallCategoryId;
     }
 }
