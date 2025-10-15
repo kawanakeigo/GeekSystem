@@ -36,12 +36,7 @@ public class OrderController {
     	if (result.hasErrors()) {
         return "redirect:/orders";
     }
-    	orderService.createOrder(
-                orderForm.getProductId(),
-                orderForm.getStoreId(),
-                orderForm.getQuantity(),
-                orderForm.getCategoryId()
-                );
+    	orderService.createOrder(orderForm);
     	return "redirect:/orders";
     }
     

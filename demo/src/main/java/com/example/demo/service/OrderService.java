@@ -10,6 +10,7 @@ import com.example.demo.entity.LargeCategory;
 import com.example.demo.entity.Order;
 import com.example.demo.entity.Product;
 import com.example.demo.entity.Store;
+import com.example.demo.form.OrderForm;
 import com.example.demo.repository.LargeCategoryRepository;
 import com.example.demo.repository.OrderRepository;
 import com.example.demo.repository.ProductRepository;
@@ -52,19 +53,19 @@ public class OrderService {
     
     
     @Transactional
-    public Order createOrder(Long productId, Long storeId, Long quantity, Long categoriesId) {
-        Product product = productRepository.findById(productId)
+    public Order createOrder(OrderForm form) {
+        Product product = productRepository.findById(form.getProductId())
                             .orElseThrow(() -> new IllegalArgumentException("商品が見つかりません"));
-        Store store = storeRepository.findById(storeId)
+        Store store = storeRepository.findById(form.getStoreId())
                             .orElseThrow(() -> new IllegalArgumentException("店舗が見つかりません"));
-        LargeCategory category = largeCategoryRepository.findById(categoriesId)
+        LargeCategory category = largeCategoryRepository.findById(form.getCategoryId())
         					.orElseThrow(() ->new IllegalArgumentException("カテゴリが見つかりません"));
         
         Order order = new Order();
         order.setProduct(product);
         order.setStore(store);
-        order.setQuantity(quantity);
-        order.setLarge_categories_Id(categoriesId);
+        order.setQuantity(form.getQuantity());
+        order.setLarge_categories_Id(category.getId());
         order.setStatus("発注済み");  
         
         Admin admin = new Admin();
