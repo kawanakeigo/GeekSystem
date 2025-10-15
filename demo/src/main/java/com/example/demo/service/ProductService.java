@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.DTO.ProductDTO;
 import com.example.demo.entity.LargeCategory;
-import com.example.demo.entity.Products;
+import com.example.demo.entity.Product;
 import com.example.demo.repository.LargeCategoryRepository;
 import com.example.demo.repository.ProductRepository;
 
@@ -22,7 +22,7 @@ public class ProductService {
         this.largeCategoryRepository = largeCategoryRepository;
     }
     
-    private  ProductDTO convertToDTO(Products product) {
+    private  ProductDTO convertToDTO(Product product) {
     	ProductDTO dto = new ProductDTO();
     	dto.setId(product.getId());
         dto.setName(product.getName());
@@ -36,8 +36,8 @@ public class ProductService {
         return dto;
     }
     
-    private Products convertToEntity(ProductDTO dto) {
-        Products product = new Products();
+    private Product convertToEntity(ProductDTO dto) {
+        Product product = new Product();
         product.setId(dto.getId());
         product.setName(dto.getName());
         product.setLarge_categories_Id(dto.getLargeCategoryId());
@@ -94,7 +94,7 @@ public class ProductService {
     }
     
     public void save(ProductDTO productDto) {
-    	Products entity = convertToEntity(productDto);
+    	Product entity = convertToEntity(productDto);
         productRepository.save(entity);
     }
     

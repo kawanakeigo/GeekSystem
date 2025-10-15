@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.entity.Admin;
 import com.example.demo.entity.LargeCategory;
 import com.example.demo.entity.Order;
-import com.example.demo.entity.Products;
+import com.example.demo.entity.Product;
 import com.example.demo.entity.Store;
 import com.example.demo.repository.LargeCategoryRepository;
 import com.example.demo.repository.OrderRepository;
@@ -41,7 +41,7 @@ public class OrderService {
         return storeRepository.findAll();
     }
     
-    public List<Products> getAllProducts() {
+    public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
     
@@ -53,7 +53,7 @@ public class OrderService {
     
     @Transactional
     public Order createOrder(Long productId, Long storeId, Long quantity, Long categoriesId) {
-        Products product = productRepository.findById(productId)
+        Product product = productRepository.findById(productId)
                             .orElseThrow(() -> new IllegalArgumentException("商品が見つかりません"));
         Store store = storeRepository.findById(storeId)
                             .orElseThrow(() -> new IllegalArgumentException("店舗が見つかりません"));
