@@ -60,7 +60,6 @@ public class AdminController {
             model.addAttribute("authorities", adminService.getAllAuthorities());
     		return "admin-form";
     	}
-    	
         adminService.create(form);
         return "redirect:/admins";
     }
@@ -73,8 +72,6 @@ public class AdminController {
             return "redirect:/admins";
         }
         AdminForm form = adminService.convertToForm(adminDto);
-        
-
         model.addAttribute("adminForm", form);
         model.addAttribute("roles", adminService.getAllRoll());
         model.addAttribute("stores", adminService.getAllStores());
@@ -92,7 +89,6 @@ public class AdminController {
             model.addAttribute("authorities", adminService.getAllAuthorities());
     		return "admin-form";
     	}
-    	
         adminService.update(id, form);
         return "redirect:/admins/" + id;
     }

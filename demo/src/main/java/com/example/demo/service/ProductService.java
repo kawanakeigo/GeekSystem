@@ -16,8 +16,7 @@ public class ProductService {
 	private final ProductRepository productRepository;
 	 private final LargeCategoryRepository largeCategoryRepository;
     public ProductService(ProductRepository productRepository,
-    		LargeCategoryRepository largeCategoryRepository
-    		) {
+    		LargeCategoryRepository largeCategoryRepository) {
         this.productRepository = productRepository;
         this.largeCategoryRepository = largeCategoryRepository;
     }
@@ -32,7 +31,6 @@ public class ProductService {
         dto.setMakerId(product.getMakerId());
         dto.setPrice(product.getPrice());
         dto.setDescription(product.getDescription());
-        
         return dto;
     }
     

@@ -17,8 +17,7 @@ import com.example.demo.service.OrderService;
 @RequestMapping("/orders")
 public class OrderController {
     private final OrderService orderService;
-    public OrderController(OrderService orderService
-                           ) {
+    public OrderController(OrderService orderService) {
         this.orderService = orderService;
     }
     
@@ -35,7 +34,7 @@ public class OrderController {
     public String createOrder(@Valid @ModelAttribute ("orderForm") OrderForm orderForm,BindingResult result) {
     	if (result.hasErrors()) {
         return "redirect:/orders";
-    }
+    	}
     	orderService.createOrder(orderForm);
     	return "redirect:/orders";
     }

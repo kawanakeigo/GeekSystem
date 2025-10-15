@@ -76,5 +76,4 @@ public class MakerService {
     public void deleteMaker(Long id) {
         makerRepository.deleteById(id);
     }
-        
 }

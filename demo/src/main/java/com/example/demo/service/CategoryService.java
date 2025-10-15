@@ -25,14 +25,12 @@ public class CategoryService {
     public CategoryService(
     		LargeCategoryRepository largeRepository,
     		Middle_CategoriesRepository middleCategoryRepository,
-    		Small_CategoriesRepository smallCategoryRepository
-    		) {
+    		Small_CategoriesRepository smallCategoryRepository) {
         this.largeCategoryRepository = largeRepository;
         this.middleCategoryRepository = middleCategoryRepository;
         this.smallCategoryRepository = smallCategoryRepository;
     }
     
-    //entityをDTO変換
     private LargeCategoryDTO convertLargeToDTO(LargeCategory largeCategory) {
         LargeCategoryDTO dto = new LargeCategoryDTO();
         dto.setId(largeCategory.getId());
@@ -56,7 +54,6 @@ public class CategoryService {
         return dto;
     }
     
-    //大カテゴリ
     public List<LargeCategoryDTO> getAllLargeCategories() {
         return largeCategoryRepository.findAll()
                 .stream()
@@ -70,7 +67,6 @@ public class CategoryService {
                 .orElse(null);
     }
     
-  //中カテゴリ
     public List<MiddleCategoryDTO> getMiddleCategoriesByLargeId(Long largeId) {
         return middleCategoryRepository.findByLargeCategoriesId(largeId)
                 .stream()
@@ -91,15 +87,12 @@ public class CategoryService {
                 .collect(Collectors.toList());
     }
     
-    //小カテゴリ
     public SmallCategoryDTO getSmallCategoryById(Long id) {
         return smallCategoryRepository.findById(id)
                 .map(this::convertSmallToDTO)
                 .orElse(null);
     }
     
-
-    //DTO変換
     public List<CategoryDTO> getChildCategories(Long parentId) {
         if (middleCategoryRepository.existsByLargeCategoriesId(parentId)) {
         return middleCategoryRepository.findByLargeCategoriesId(parentId)

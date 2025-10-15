@@ -29,15 +29,12 @@ public class AdminService {
     		AdminRepository adminRepository,
     		RoleRepository roleRepository,
     		StoreRepository storeRepository,
-    		AuthoritiesRepository authoritiesRepository
-    		) {
+    		AuthoritiesRepository authoritiesRepository) {
         this.adminRepository = adminRepository;
         this.roleRepository = roleRepository;
         this.storeRepository = storeRepository;
         this.authoritiesRepository = authoritiesRepository;
     }
-
-
     
     public List<Store> getAllStores() {
         return storeRepository.findAll();
@@ -50,8 +47,6 @@ public class AdminService {
     public List<Role> getAllRoll() {
         return roleRepository.findAll();
     }
-
-
 
     public void save(Admin admin) {
         adminRepository.save(admin);
@@ -135,7 +130,7 @@ public class AdminService {
 		
 		if (form.getPassword() != null && !form.getPassword().isEmpty()) {
             admin.setPassword(form.getPassword());
-    }
+		}
 		
 		Role role =roleRepository.findById(form.getRoleId()).orElse(null);
 		admin.setRole(role);
@@ -143,12 +138,10 @@ public class AdminService {
 		return adminRepository.save(admin);
     }
     
-    
     @Transactional
     public void delete(Long id) {
         adminRepository.deleteById(id);
     }
-		
-  }
+}
     
     

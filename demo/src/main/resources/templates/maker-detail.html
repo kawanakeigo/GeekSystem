@@ -9,10 +9,9 @@
 	<h1>メーカー詳細</h1>
 	<p>ID: <span th:text="${maker.id}"></span></p>
 	<p>名前: <span th:text="${maker.name}"></span></p>
-
 	<a th:href="@{/makers/new}">編集</a>
 	<form th:action="@{/makers/delete/{id}(id=${maker.id})}" method="post">
-	  <button type="submit">削除</button>
+		 <button type="submit">削除</button>
 	</form>
 	<li><a th:href="@{/}">Topページへ</a></li>
 </body>

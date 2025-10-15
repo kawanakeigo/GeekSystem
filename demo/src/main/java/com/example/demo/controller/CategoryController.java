@@ -23,8 +23,7 @@ public class CategoryController {
     private final CategoryService categoryService;
     
     public CategoryController(
-    		CategoryService categoryService
-    		) {
+    		CategoryService categoryService) {
         this.categoryService = categoryService;
     }
     

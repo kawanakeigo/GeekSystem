@@ -20,7 +20,6 @@ public class ProductController {
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
-    
 
     @GetMapping
     public String getAllProducts(Model model) {
@@ -33,10 +32,9 @@ public class ProductController {
     public List<ProductDTO> getProductsByCategory(@RequestParam Long categoryId) {
     	 List<ProductDTO> products = productService.findBySmallCategoryId(categoryId);
          if (!products.isEmpty()) return products;
-    	
          products = productService.findByMiddleCategoryId(categoryId);
+         
          if (!products.isEmpty()) return products;
-    	
         return productService.findByLargeCategoryId(categoryId);
     }
 }

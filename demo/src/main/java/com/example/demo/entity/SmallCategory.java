@@ -33,5 +33,4 @@ public class SmallCategory {
     public void setMiddleCategoriesId(Long middleCategoriesId) {
     	this.middleCategoriesId = middleCategoriesId;
     }
-
 }

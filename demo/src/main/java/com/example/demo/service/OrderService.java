@@ -26,8 +26,7 @@ public class OrderService {
     public OrderService(OrderRepository orderRepository,
                         ProductRepository productRepository,
                         StoreRepository storeRepository,
-                        LargeCategoryRepository largeCategoryRepository
-                        ) {
+                        LargeCategoryRepository largeCategoryRepository) {
         this.orderRepository = orderRepository;
         this.productRepository = productRepository;
         this.storeRepository = storeRepository;

@@ -12,8 +12,7 @@
 	<p>住所: <span th:text="${store.location}"></span></p>
 	
 	<a th:href="@{/stores/{id}/edit(id=${store.id})}">編集</a>
-	
-	</form th:action="@{/stores/{id}/delete(id=${store.id})}" method="post">
+	<form th:action="@{/stores/{id}/delete(id=${store.id})}" method="post">
 		<button type="submit">削除</button>
   	</form>
 </body>
