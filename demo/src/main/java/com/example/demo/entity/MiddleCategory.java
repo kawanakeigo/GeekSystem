@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "middle_categories")
-public class Middle_Categories {
+public class MiddleCategory {
 	@Id
     private Long id;
     private String name;

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.DTO.CategoryDTO;
 import com.example.demo.entity.LargeCategory;
-import com.example.demo.entity.Middle_Categories;
+import com.example.demo.entity.MiddleCategory;
 import com.example.demo.entity.Small_Categories;
 import com.example.demo.service.CategoryService;
 
@@ -40,7 +40,7 @@ public class CategoryController {
         LargeCategory large = categoryService.getLargeCategoryById(id).orElse(null);
         if (large == null) return "redirect:/categories/large";
 
-        List<Middle_Categories> middleList =categoryService.getMiddleCategoriesByLargeId(id);
+        List<MiddleCategory> middleList =categoryService.getMiddleCategoriesByLargeId(id);
 
         model.addAttribute("largeCategory", large);
         model.addAttribute("middleCategories", middleList);
@@ -49,7 +49,7 @@ public class CategoryController {
     
     @GetMapping("/middle/{id}")
     public String detailMiddleCategory(@PathVariable Long id, Model model) {
-    	Middle_Categories middle = categoryService.getMiddleCategoryById(id).orElse(null);
+    	MiddleCategory middle = categoryService.getMiddleCategoryById(id).orElse(null);
         if (middle == null) return "redirect:/categories/large";
 
         List<Small_Categories> smallList = categoryService.getSmallCategoryByMiddleId(id);
