@@ -4,5 +4,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.demo.entity.Makers;
 
-public interface MakerRepository extends JpaRepository<Makers, Long> {
-}
+public interface MakerRepository extends JpaRepository<Makers, Long> {}

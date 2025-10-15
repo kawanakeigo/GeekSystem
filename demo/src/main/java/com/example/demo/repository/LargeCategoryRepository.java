@@ -6,6 +6,4 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.entity.LargeCategory;
 
 @Repository
-public interface LargeCategoryRepository extends JpaRepository<LargeCategory, Long>{
-	
-}
+public interface LargeCategoryRepository extends JpaRepository<LargeCategory, Long>{}
