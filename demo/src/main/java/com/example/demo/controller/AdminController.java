@@ -22,11 +22,8 @@ public class AdminController {
     private final AdminService adminService;
 
     public AdminController(
-    		AdminService adminService
-    		
-    		) {
+    		AdminService adminService) {
         this.adminService = adminService;
-        
     }
 
     // 一覧
@@ -75,15 +72,8 @@ public class AdminController {
         if (adminDto == null) {
             return "redirect:/admins";
         }
-        AdminForm form = new AdminForm();
-        form.setId(adminDto.getId());
-        form.setFirstName(adminDto.getFirstName());
-        form.setLastName(adminDto.getLastName());
-        form.setEmail(adminDto.getEmail());
-        form.setPhonenumber(adminDto.getPhonenumber());
-        form.setRoleId(adminDto.getRole().getId());
-        form.setStoreId(adminDto.getStore().getId());
-        form.setAuthoritiesId(adminDto.getAuthoritiesId());
+        AdminForm form = adminService.convertToForm(adminDto);
+        
 
         model.addAttribute("adminForm", form);
         model.addAttribute("roles", adminService.getAllRoll());

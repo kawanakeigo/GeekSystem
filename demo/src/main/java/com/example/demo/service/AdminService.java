@@ -84,6 +84,22 @@ public class AdminService {
                 .orElse(null);
     }
     
+    //DTOをFormに変換
+    public AdminForm convertToForm(AdminDTO adminDto) {
+    	if(adminDto == null)return null;
+    	
+    	AdminForm form = new AdminForm();
+    	form.setId(adminDto.getId());
+        form.setFirstName(adminDto.getFirstName());
+        form.setLastName(adminDto.getLastName());
+        form.setEmail(adminDto.getEmail());
+        form.setPhonenumber(adminDto.getPhonenumber());
+        form.setRoleId(adminDto.getRole().getId());
+        form.setStoreId(adminDto.getStore().getId());
+        form.setAuthoritiesId(adminDto.getAuthoritiesId());
+        return form;
+    }
+    
     //新規作成
     @Transactional
     public Admin create(AdminForm form) {
