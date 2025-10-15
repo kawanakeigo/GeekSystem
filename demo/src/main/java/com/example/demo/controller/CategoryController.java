@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.DTO.CategoryDTO;
-import com.example.demo.entity.LargeCategory;
-import com.example.demo.entity.MiddleCategory;
-import com.example.demo.entity.SmallCategory;
+import com.example.demo.DTO.LargeCategoryDTO;
+import com.example.demo.DTO.MiddleCategoryDTO;
+import com.example.demo.DTO.SmallCategoryDTO;
 import com.example.demo.service.CategoryService;
 
 
@@ -30,17 +30,17 @@ public class CategoryController {
     
     @GetMapping("/large")
     public String listLargeCategory(Model model) {
-        List<LargeCategory> largeCategories = categoryService.findAll();
+        List<LargeCategoryDTO> largeCategories = categoryService.getAllLargeCategories();
         model.addAttribute("largeCategories", largeCategories);
         return "large-categories-list"; 
     }
     
     @GetMapping("/large/{id}")
     public String detailLargeCategory(@PathVariable Long id, Model model) {
-        LargeCategory large = categoryService.getLargeCategoryById(id).orElse(null);
+        LargeCategoryDTO large = categoryService.getLargeCategoryById(id);
         if (large == null) return "redirect:/categories/large";
 
-        List<MiddleCategory> middleList =categoryService.getMiddleCategoriesByLargeId(id);
+        List<MiddleCategoryDTO> middleList =categoryService.getMiddleCategoriesByLargeId(id);
 
         model.addAttribute("largeCategory", large);
         model.addAttribute("middleCategories", middleList);
@@ -49,10 +49,10 @@ public class CategoryController {
     
     @GetMapping("/middle/{id}")
     public String detailMiddleCategory(@PathVariable Long id, Model model) {
-    	MiddleCategory middle = categoryService.getMiddleCategoryById(id).orElse(null);
+    	MiddleCategoryDTO middle = categoryService.getMiddleCategoryById(id);
         if (middle == null) return "redirect:/categories/large";
 
-        List<SmallCategory> smallList = categoryService.getSmallCategoryByMiddleId(id);
+        List<SmallCategoryDTO> smallList = categoryService.getSmallCategoriesByMiddleId(id);
 
         model.addAttribute("middleCategory", middle);
         model.addAttribute("smallCategories", smallList);
@@ -61,7 +61,7 @@ public class CategoryController {
     
     @GetMapping("/small/{id}")
     public String detailSmallCategory(@PathVariable Long id, Model model) {
-        SmallCategory small = categoryService.getSmallCategoryById(id).orElse(null);
+        SmallCategoryDTO small = categoryService.getSmallCategoryById(id);
         if (small == null) return "redirect:/categories/large";
 
         model.addAttribute("smallCategory", small);
