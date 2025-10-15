@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 
 import com.example.demo.DTO.MakerDTO;
 import com.example.demo.entity.Maker;
+import com.example.demo.form.MakerForm;
 import com.example.demo.repository.MakerRepository;
 
 public class MakerService {
@@ -23,6 +24,20 @@ public class MakerService {
         return dto;
     }
     
+    private MakerForm convertToForm(Maker maker) {
+        MakerForm form = new MakerForm();
+        form.setId(maker.getId());
+        form.setName(maker.getName());
+        return form;
+    }
+    
+    private Maker convertToEntity(MakerForm form) {
+        Maker maker = new Maker();
+        maker.setId(form.getId());
+        maker.setName(form.getName());
+        return maker;
+    }
+    
     public List<MakerDTO> getAllMakers() {
         return makerRepository.findAll()
                 .stream()
@@ -36,16 +51,23 @@ public class MakerService {
                 .orElse(null);
     }
     
+    public MakerForm getMakerFormById(Long id) {
+        return makerRepository.findById(id)
+                .map(this::convertToForm)
+                .orElse(null);
+    }
     
     //新規作成
     @Transactional
-    public Maker createMaker(Maker maker) {
+    public Maker createMaker(MakerForm form) {
+    	Maker maker = convertToEntity(form);
         return makerRepository.save(maker);
     }
     
    //編集
     @Transactional
-    public Maker updateMaker(Maker maker) {
+    public Maker updateMaker(MakerForm form) {
+    	Maker maker = convertToEntity(form);
         return makerRepository.save(maker);
     }
     

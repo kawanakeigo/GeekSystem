@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.DTO.MakerDTO;
-import com.example.demo.entity.Maker;
+import com.example.demo.form.MakerForm;
 import com.example.demo.service.MakerService;
 
 @Controller
@@ -28,27 +27,27 @@ public class MakerController {
 	
 	@GetMapping("/new")
     public String showCreateForm(Model model) {
-        model.addAttribute("maker", new Maker());
+        model.addAttribute("makerForm", new MakerForm());
         return "maker-form";
     }
 	
     @PostMapping("/new")
-    public String createMaker(@ModelAttribute Maker maker) {
-        makerService.createMaker(maker);
+    public String createMaker(@ModelAttribute MakerForm form) {
+        makerService.createMaker(form);
         return "redirect:/makers";
     }
     
     @GetMapping("{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
-        MakerDTO maker = makerService.getMakerById(id);
-        if (maker == null) return "redirect:/makers";
-        model.addAttribute("maker", maker);
+        MakerForm form = makerService.getMakerFormById(id);
+        if (form == null) return "redirect:/makers";
+        model.addAttribute("makerForm", form);
         return "maker-detail";
     }
     
     @PostMapping("/update")
-    public String updateMaker(@ModelAttribute Maker maker) {
-        makerService.updateMaker(maker);
+    public String updateMaker(@ModelAttribute MakerForm form) {
+        makerService.updateMaker(form);
         return "redirect:/makers";
     }
     
