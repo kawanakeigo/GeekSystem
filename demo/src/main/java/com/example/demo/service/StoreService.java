@@ -2,9 +2,11 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.example.demo.DTO.StoreDTO;
 import com.example.demo.entity.Store;
 import com.example.demo.repository.StoreRepository;
 
@@ -15,16 +17,39 @@ public class StoreService {
         this.storeRepository = storeRepository;
     }
     
-    public List<Store> findAll() {
-        return storeRepository.findAll();
+    private StoreDTO convertToDTO(Store store) {
+        StoreDTO dto = new StoreDTO();
+        dto.setId(store.getId());
+        dto.setName(store.getName());
+        dto.setLocation(store.getLocation());
+        return dto;
     }
     
-    public Store findById(Long id) {
-        return storeRepository.findById(id).orElse(null);
+    private Store convertToEntity(StoreDTO dto) {
+        Store store = new Store();
+        store.setId(dto.getId());
+        store.setName(dto.getName());
+        store.setLocation(dto.getLocation());
+        return store;
     }
     
-    public Store save(Store store) {
-        return storeRepository.save(store);
+    public List<StoreDTO> findAll() {
+        return storeRepository.findAll()
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+    
+    public StoreDTO findById(Long id) {
+        return storeRepository.findById(id)
+        		.map(this::convertToDTO)
+                .orElse(null);
+    }
+    
+    
+    public void save(StoreDTO storeDto) {
+    	Store entity = convertToEntity(storeDto);
+        storeRepository.save(entity);
     }
     
     public void deleteById(Long id) {

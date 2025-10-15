@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.entity.Store;
+import com.example.demo.DTO.StoreDTO;
 import com.example.demo.service.StoreService;
 
 @Controller
@@ -28,7 +28,7 @@ public class StoreController {
     
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
-        Store store = storeService.findById(id);
+        StoreDTO store = storeService.findById(id);
         if (store == null) {
             return "redirect:/stores";
         }
@@ -38,7 +38,7 @@ public class StoreController {
     
     @GetMapping("/{id}/edit")
     public String showEditForm(@PathVariable Long id, Model model) {
-        Store store = storeService.findById(id);
+        StoreDTO store = storeService.findById(id);
         if (store == null) {
             return "redirect:/stores";
         }
@@ -47,7 +47,7 @@ public class StoreController {
     }
     
     @PostMapping("/{id}/edit")
-    public String updateStore(@PathVariable Long id, @ModelAttribute Store store) {
+    public String updateStore(@PathVariable Long id, @ModelAttribute StoreDTO store) {
         store.setId(id); 
         storeService.save(store);
         return "redirect:/stores/" + id;
