@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import jakarta.transaction.Transactional;
 
 import com.example.demo.DTO.MakerDTO;
-import com.example.demo.entity.Makers;
+import com.example.demo.entity.Maker;
 import com.example.demo.repository.MakerRepository;
 
 public class MakerService {
@@ -16,7 +16,7 @@ public class MakerService {
         this.makerRepository = makerRepository;
     }
     
-    private MakerDTO convertToDTO(Makers maker) {
+    private MakerDTO convertToDTO(Maker maker) {
         MakerDTO dto = new MakerDTO();
         dto.setId(maker.getId());
         dto.setName(maker.getName());
@@ -39,13 +39,13 @@ public class MakerService {
     
     //新規作成
     @Transactional
-    public Makers createMaker(Makers maker) {
+    public Maker createMaker(Maker maker) {
         return makerRepository.save(maker);
     }
     
    //編集
     @Transactional
-    public Makers updateMaker(Makers maker) {
+    public Maker updateMaker(Maker maker) {
         return makerRepository.save(maker);
     }
     

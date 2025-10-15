@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.DTO.MakerDTO;
-import com.example.demo.entity.Makers;
+import com.example.demo.entity.Maker;
 import com.example.demo.service.MakerService;
 
 @Controller
@@ -28,12 +28,12 @@ public class MakerController {
 	
 	@GetMapping("/new")
     public String showCreateForm(Model model) {
-        model.addAttribute("maker", new Makers());
+        model.addAttribute("maker", new Maker());
         return "maker-form";
     }
 	
     @PostMapping("/new")
-    public String createMaker(@ModelAttribute Makers maker) {
+    public String createMaker(@ModelAttribute Maker maker) {
         makerService.createMaker(maker);
         return "redirect:/makers";
     }
@@ -47,7 +47,7 @@ public class MakerController {
     }
     
     @PostMapping("/update")
-    public String updateMaker(@ModelAttribute Makers maker) {
+    public String updateMaker(@ModelAttribute Maker maker) {
         makerService.updateMaker(maker);
         return "redirect:/makers";
     }
