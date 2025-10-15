@@ -1,9 +1,11 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.example.demo.DTO.ProductDTO;
 import com.example.demo.entity.LargeCategory;
 import com.example.demo.entity.Products;
 import com.example.demo.repository.LargeCategoryRepository;
@@ -20,37 +22,83 @@ public class ProductService {
         this.largeCategoryRepository = largeCategoryRepository;
     }
     
-    public List<Products> getAllProducts() {
-        return productRepository.findAll();
+    private  ProductDTO convertToDTO(Products product) {
+    	ProductDTO dto = new ProductDTO();
+    	dto.setId(product.getId());
+        dto.setName(product.getName());
+        dto.setLargeCategoryId(product.getLarge_categories_Id());
+        dto.setMiddleCategoryId(product.getMiddle_categories_Id());
+        dto.setSmallCategoryId(product.getSmall_categories_Id());
+        dto.setMakerId(product.getMakerId());
+        dto.setPrice(product.getPrice());
+        dto.setDescription(product.getDescription());
+        
+        return dto;
     }
     
-    public List<Products> findByLargeCategoryId(Long categoryId) {
-        return productRepository.findByLargeCategoryId(categoryId);
+    private Products convertToEntity(ProductDTO dto) {
+        Products product = new Products();
+        product.setId(dto.getId());
+        product.setName(dto.getName());
+        product.setLarge_categories_Id(dto.getLargeCategoryId());
+        product.setMiddle_categories_Id(dto.getMiddleCategoryId());
+        product.setSmall_categories_Id(dto.getSmallCategoryId());
+        product.setMakerId(dto.getMakerId());
+        product.setPrice(dto.getPrice());
+        product.setDescription(dto.getDescription());
+        return product;
     }
     
-    public List<Products> findByMiddleCategoryId(Long categoryId) {
-        return productRepository.findByMiddleCategoryId(categoryId);
+    public List<ProductDTO> getAllProducts() {
+        return productRepository.findAll()
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
     
-    public List<Products> findBySmallCategoryId(Long categoryId) {
-        return productRepository.findBySmallCategoryId(categoryId);
+    public ProductDTO getProductById(Long id) {
+        return productRepository.findById(id)
+                .map(this::convertToDTO)
+                .orElse(null);
+    }
+    
+    public List<ProductDTO> findByLargeCategoryId(Long categoryId) {
+        return productRepository.findByLargeCategoryId(categoryId)
+        		.stream()
+        		.map(this::convertToDTO)
+        		.collect(Collectors.toList());
+    }
+    
+    public List<ProductDTO> findByMiddleCategoryId(Long categoryId) {
+        return productRepository.findByMiddleCategoryId(categoryId)
+        		.stream()
+        		.map(this::convertToDTO)
+        		.collect(Collectors.toList());
+    }
+    
+    public List<ProductDTO> findBySmallCategoryId(Long categoryId) {
+        return productRepository.findBySmallCategoryId(categoryId)
+        		.stream()
+        		.map(this::convertToDTO)
+        		.collect(Collectors.toList());
     }
     
     public List<LargeCategory> getAllCategories() {
         return largeCategoryRepository.findAll();
     }
     
-    public Products findById(Long id) {
-        return productRepository.findById(id).orElse(null);
+    public ProductDTO findById(Long id) {
+        return productRepository.findById(id)
+        		.map(this::convertToDTO)
+                .orElse(null);
     }
     
-    public Products save(Products product) {
-        return productRepository.save(product);
+    public void save(ProductDTO productDto) {
+    	Products entity = convertToEntity(productDto);
+        productRepository.save(entity);
     }
     
     public void delete(Long id) {
         productRepository.deleteById(id);
     }
-    
-    
 }

@@ -32,32 +32,56 @@ public class Products {
     public Long getId() {
         return id;
     }
+    public void setId(Long id) {
+    	this.id = id;
+    }
     
     public String getName() {
         return name;
+    }
+    public void setName(String name) {
+    	this.name = name;
     }
     
     public Long getLarge_categories_Id() {
         return largeCategoryId;
     }
+    public void setLarge_categories_Id(Long largeCategoryId) {
+    	this.largeCategoryId = largeCategoryId;
+    }
     
     public Long getMiddle_categories_Id() {
         return middleCategoryId;
+    }
+    public void setMiddle_categories_Id(Long middleCategoryId) {
+    	this.middleCategoryId = middleCategoryId;
     }
     
     public Long getSmall_categories_Id() {
         return smallCategoryId;
     }
+    public void setSmall_categories_Id(Long smallCategoryId) {
+    	this.smallCategoryId = smallCategoryId;
+    }
     
     public Long getMakerId() {
         return makerId;
+    }
+    public void setMakerId(Long makerId) {
+    	this.makerId = makerId;
     }
     
     public Double getPrice() {
         return price;
     }
+    public void setPrice(Double price) {
+    	this.price = price;
+    }
     
     public String getDescription() {
         return description;
+    }
+    public void setDescription(String description) {
+    	this.description = description;
     }
 }

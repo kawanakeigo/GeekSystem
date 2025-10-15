@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.demo.entity.Products;
+import com.example.demo.DTO.ProductDTO;
 import com.example.demo.service.ProductService;
 
 @Controller
@@ -30,9 +30,8 @@ public class ProductController {
     
     @GetMapping("/by-category")
     @ResponseBody
-    public List<Products> getProductsByCategory(@RequestParam Long categoryId) {
-    	
-    	 List<Products> products = productService.findBySmallCategoryId(categoryId);
+    public List<ProductDTO> getProductsByCategory(@RequestParam Long categoryId) {
+    	 List<ProductDTO> products = productService.findBySmallCategoryId(categoryId);
          if (!products.isEmpty()) return products;
     	
          products = productService.findByMiddleCategoryId(categoryId);
