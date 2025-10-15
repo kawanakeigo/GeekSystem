@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.DTO.AdminDTO;
 import com.example.demo.entity.Admin;
-import com.example.demo.entity.Authorities;
+import com.example.demo.entity.Authority;
 import com.example.demo.entity.Role;
 import com.example.demo.entity.Store;
 import com.example.demo.form.AdminForm;
@@ -43,7 +43,7 @@ public class AdminService {
         return storeRepository.findAll();
     }
     
-    public List<Authorities> getAllAuthorities() {
+    public List<Authority> getAllAuthorities() {
         return authoritiesRepository.findAll();
     }
     

@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "authorities")
-public class Authorities {
+public class Authority {
 	
 	@Id
 	private Long Id;
@@ -20,7 +20,4 @@ public class Authorities {
 	public String getName() {
 		return name;
 	}
-	
-
-
 }
