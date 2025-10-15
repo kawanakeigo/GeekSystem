@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "small_categories")
-public class Small_Categories {
+public class SmallCategory {
 	@Id
     private Long id;
     private String name;

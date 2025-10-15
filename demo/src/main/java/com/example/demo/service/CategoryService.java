@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.DTO.CategoryDTO;
 import com.example.demo.entity.LargeCategory;
 import com.example.demo.entity.MiddleCategory;
-import com.example.demo.entity.Small_Categories;
+import com.example.demo.entity.SmallCategory;
 import com.example.demo.repository.LargeCategoryRepository;
 import com.example.demo.repository.Middle_CategoriesRepository;
 import com.example.demo.repository.Small_CategoriesRepository;
@@ -60,7 +60,7 @@ public class CategoryService {
         return middleCategoryRepository.findById(id);
     }
     
-    public List<Small_Categories> getSmallCategoryByMiddleId(Long middleId) {
+    public List<SmallCategory> getSmallCategoryByMiddleId(Long middleId) {
         return smallCategoryRepository.findByMiddleCategoriesId(middleId);
     }
     
@@ -69,11 +69,11 @@ public class CategoryService {
     }
     
     //小カテゴリ
-    public List<Small_Categories> getAllSmallCategoryRepository() {
+    public List<SmallCategory> getAllSmallCategoryRepository() {
         return smallCategoryRepository.findAll();
     }
     
-    public Optional<Small_Categories> getSmallCategoryById(Long id) {
+    public Optional<SmallCategory> getSmallCategoryById(Long id) {
         return smallCategoryRepository.findById(id);
     }
     

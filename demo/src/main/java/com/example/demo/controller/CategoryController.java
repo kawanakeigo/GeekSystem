@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.DTO.CategoryDTO;
 import com.example.demo.entity.LargeCategory;
 import com.example.demo.entity.MiddleCategory;
-import com.example.demo.entity.Small_Categories;
+import com.example.demo.entity.SmallCategory;
 import com.example.demo.service.CategoryService;
 
 
@@ -52,7 +52,7 @@ public class CategoryController {
     	MiddleCategory middle = categoryService.getMiddleCategoryById(id).orElse(null);
         if (middle == null) return "redirect:/categories/large";
 
-        List<Small_Categories> smallList = categoryService.getSmallCategoryByMiddleId(id);
+        List<SmallCategory> smallList = categoryService.getSmallCategoryByMiddleId(id);
 
         model.addAttribute("middleCategory", middle);
         model.addAttribute("smallCategories", smallList);
@@ -61,7 +61,7 @@ public class CategoryController {
     
     @GetMapping("/small/{id}")
     public String detailSmallCategory(@PathVariable Long id, Model model) {
-        Small_Categories small = categoryService.getSmallCategoryById(id).orElse(null);
+        SmallCategory small = categoryService.getSmallCategoryById(id).orElse(null);
         if (small == null) return "redirect:/categories/large";
 
         model.addAttribute("smallCategory", small);
