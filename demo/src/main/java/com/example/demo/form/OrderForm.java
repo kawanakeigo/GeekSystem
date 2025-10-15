@@ -6,25 +6,28 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 public class OrderForm {
-	@NotNull
+	@NotNull(message = "商品IDを入力してください")
     private Long productId;
 	
-	@NotNull
+	@NotNull(message = "店IDを入力してください")
     private Long storeId;
 	
-	@NotNull
+	@NotNull(message = "1注文以上1000注文以内で入力してください")
     @Min(value = 1)
     @Max(value = 1000)
     private Long quantity;
 	
 	private Long categoryId;
 	
+	@NotNull(message = "カテゴリを選択してください")
 	@Column(name = "large_categories_id")
     private Long largeCategoryId;
     
+	@NotNull(message = "カテゴリを選択してください")
     @Column(name = "middle_categories_id")
     private Long middleCategoryId;
     
+	@NotNull(message = "カテゴリを選択してください")
     @Column(name = "small_categories_id")
     private Long smallCategoryId;
 	
