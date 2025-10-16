@@ -53,7 +53,9 @@ public class AdminService {
     }
     
     //EntityをDTOに変換
-    private AdminDTO convertToDTO(Admin admin) {
+    private AdminDTO convertToDTO(
+    	Admin admin
+    ) {
         AdminDTO dto = new AdminDTO();
         dto.setId(admin.getId());
         dto.setFirstName(admin.getFirstName());
@@ -66,21 +68,26 @@ public class AdminService {
         return dto;
     }
     
-    public List<AdminDTO> getAllAdmins() {
+    public List<AdminDTO> getAllAdmins(
+    ) {
         return adminRepository.findAll()
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
     
-    public AdminDTO getAdmin(Long id) {
+    public AdminDTO getAdmin(
+    	Long id
+    ) {
         return adminRepository.findById(id)
                 .map(this::convertToDTO)
                 .orElse(null);
     }
     
     //DTOをFormに変換
-    public AdminForm convertToForm(AdminDTO adminDto) {
+    public AdminForm convertToForm(
+    	AdminDTO adminDto
+    ) {
     	if(adminDto == null)return null;
     	
     	AdminForm form = new AdminForm();
@@ -97,7 +104,9 @@ public class AdminService {
     
     //新規作成
     @Transactional
-    public Admin create(AdminForm form) {
+    public Admin create(
+    	AdminForm form
+    ) {
     	Admin admin = new Admin();
     		admin.setFirstName(form.getFirstName());
     		admin.setLastName(form.getLastName());
@@ -116,7 +125,9 @@ public class AdminService {
     }
     
     @Transactional
-    public Admin update(Long id, AdminForm form) {
+    public Admin update(
+    	Long id, AdminForm form
+    ) {
     	Admin admin = adminRepository.findById(id).orElse(null);
     	if (admin == null) {
     		return null;
@@ -139,7 +150,9 @@ public class AdminService {
     }
     
     @Transactional
-    public void delete(Long id) {
+    public void delete(
+    	Long id
+    ) {
         adminRepository.deleteById(id);
     }
 }

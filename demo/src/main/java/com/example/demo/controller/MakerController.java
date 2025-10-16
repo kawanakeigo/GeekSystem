@@ -15,30 +15,40 @@ import com.example.demo.service.MakerService;
 @RequestMapping("/makers")
 public class MakerController {
 	private final MakerService makerService;
-	public MakerController(MakerService makerService) {
+	public MakerController(
+		MakerService makerService
+	) {
         this.makerService = makerService;
     }
 	
 	@GetMapping
-    public String listMakers(Model model) {
+    public String listMakers(
+    	Model model
+    ) {
         model.addAttribute("makers", makerService.getAllMakers());
         return "maker-list";
     }
 	
 	@GetMapping("/new")
-    public String showCreateForm(Model model) {
+    public String showCreateForm(
+    	Model model
+    ) {
         model.addAttribute("makerForm", new MakerForm());
         return "maker-form";
     }
 	
     @PostMapping("/new")
-    public String createMaker(@ModelAttribute MakerForm form) {
+    public String createMaker(
+    	@ModelAttribute MakerForm form
+    ) {
         makerService.createMaker(form);
         return "redirect:/makers";
     }
     
     @GetMapping("{id}")
-    public String showEditForm(@PathVariable Long id, Model model) {
+    public String showEditForm(
+    	@PathVariable Long id, Model model
+    ) {
         MakerForm form = makerService.getMakerFormById(id);
         if (form == null) return "redirect:/makers";
         model.addAttribute("makerForm", form);
@@ -46,13 +56,17 @@ public class MakerController {
     }
     
     @PostMapping("/update")
-    public String updateMaker(@ModelAttribute MakerForm form) {
+    public String updateMaker(
+    	@ModelAttribute MakerForm form
+    ) {
         makerService.updateMaker(form);
         return "redirect:/makers";
     }
     
     @PostMapping("/delete/{id}")
-    public String deleteMaker(@PathVariable Long id) {
+    public String deleteMaker(
+    	@PathVariable Long id
+    ) {
         makerService.deleteMaker(id);
         return "redirect:/makers";
     }

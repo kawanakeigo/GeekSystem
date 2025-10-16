@@ -26,18 +26,21 @@ public class OrderService {
     public OrderService(OrderRepository orderRepository,
                         ProductRepository productRepository,
                         StoreRepository storeRepository,
-                        LargeCategoryRepository largeCategoryRepository) {
+                        LargeCategoryRepository largeCategoryRepository
+    ) {
         this.orderRepository = orderRepository;
         this.productRepository = productRepository;
         this.storeRepository = storeRepository;
         this.largeCategoryRepository = largeCategoryRepository;
     }
     
-    public List<Order> findAllOrders() {
+    public List<Order> findAllOrders(
+    ) {
         return orderRepository.findAllByOrderByCreatedAtDesc();
     }
     
-    public List<Store> getAllStores() {
+    public List<Store> getAllStores(
+    ) {
         return storeRepository.findAll();
     }
     
@@ -45,14 +48,17 @@ public class OrderService {
         return productRepository.findAll();
     }
     
-    public List<LargeCategory> getAllCategories() {
+    public List<LargeCategory> getAllCategories(
+   ) {
         return largeCategoryRepository.findAll();
     }
     
     
     
     @Transactional
-    public Order createOrder(OrderForm form) {
+    public Order createOrder(
+    	OrderForm form
+    ) {
         Product product = productRepository.findById(form.getProductId())
                             .orElseThrow(() -> new IllegalArgumentException("商品が見つかりません"));
         Store store = storeRepository.findById(form.getStoreId())

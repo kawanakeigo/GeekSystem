@@ -31,14 +31,18 @@ public class CategoryService {
         this.smallCategoryRepository = smallCategoryRepository;
     }
     
-    private LargeCategoryDTO convertLargeToDTO(LargeCategory largeCategory) {
+    private LargeCategoryDTO convertLargeToDTO(
+    	LargeCategory largeCategory
+    ) {
         LargeCategoryDTO dto = new LargeCategoryDTO();
         dto.setId(largeCategory.getId());
         dto.setName(largeCategory.getName());
         return dto;
     }
     
-    private MiddleCategoryDTO convertMiddleToDTO(MiddleCategory middleCategory) {
+    private MiddleCategoryDTO convertMiddleToDTO(
+    	MiddleCategory middleCategory
+    ) {
         MiddleCategoryDTO dto = new MiddleCategoryDTO();
         dto.setId(middleCategory.getId());
         dto.setName(middleCategory.getName());
@@ -46,7 +50,9 @@ public class CategoryService {
         return dto;
     }
     
-    private SmallCategoryDTO convertSmallToDTO(SmallCategory snallCategory) {
+    private SmallCategoryDTO convertSmallToDTO(
+    	SmallCategory snallCategory
+    ) {
         SmallCategoryDTO dto = new SmallCategoryDTO();
         dto.setId(snallCategory.getId());
         dto.setName(snallCategory.getName());
@@ -54,46 +60,59 @@ public class CategoryService {
         return dto;
     }
     
-    public List<LargeCategoryDTO> getAllLargeCategories() {
+    public List<LargeCategoryDTO> getAllLargeCategories(
+    ) {
         return largeCategoryRepository.findAll()
                 .stream()
                 .map(this::convertLargeToDTO)
                 .collect(Collectors.toList());
     }
     
-    public LargeCategoryDTO getLargeCategoryById(Long id) {
+    public LargeCategoryDTO getLargeCategoryById(
+    	Long id
+    ) {
         return largeCategoryRepository.findById(id)
                 .map(this::convertLargeToDTO)
                 .orElse(null);
     }
     
-    public List<MiddleCategoryDTO> getMiddleCategoriesByLargeId(Long largeId) {
+    public List<MiddleCategoryDTO> getMiddleCategoriesByLargeId(
+    	Long largeId
+    ) {
         return middleCategoryRepository.findByLargeCategoriesId(largeId)
                 .stream()
                 .map(this::convertMiddleToDTO)
                 .collect(Collectors.toList());
     }
     
-    public MiddleCategoryDTO getMiddleCategoryById(Long id) {
+    public MiddleCategoryDTO getMiddleCategoryById(
+    	Long id
+    ) {
         return middleCategoryRepository.findById(id)
                 .map(this::convertMiddleToDTO)
                 .orElse(null);
     }
     
-    public List<SmallCategoryDTO> getSmallCategoriesByMiddleId(Long middleId) {
+    public List<SmallCategoryDTO> getSmallCategoriesByMiddleId(
+    	Long middleId
+    ) {
         return smallCategoryRepository.findByMiddleCategoriesId(middleId)
                 .stream()
                 .map(this::convertSmallToDTO)
                 .collect(Collectors.toList());
     }
     
-    public SmallCategoryDTO getSmallCategoryById(Long id) {
+    public SmallCategoryDTO getSmallCategoryById(
+    	Long id
+    ) {
         return smallCategoryRepository.findById(id)
                 .map(this::convertSmallToDTO)
                 .orElse(null);
     }
     
-    public List<CategoryDTO> getChildCategories(Long parentId) {
+    public List<CategoryDTO> getChildCategories(
+    	Long parentId
+    ) {
         if (middleCategoryRepository.existsByLargeCategoriesId(parentId)) {
         return middleCategoryRepository.findByLargeCategoriesId(parentId)
                 .stream()

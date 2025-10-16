@@ -22,14 +22,18 @@ public class ProductController {
     }
 
     @GetMapping
-    public String getAllProducts(Model model) {
+    public String getAllProducts(
+    	Model model
+    ) {
         model.addAttribute("products", productService.getAllProducts());
         return "product-list"; 
     }
     
     @GetMapping("/by-category")
     @ResponseBody
-    public List<ProductDTO> getProductsByCategory(@RequestParam Long categoryId) {
+    public List<ProductDTO> getProductsByCategory(
+    	@RequestParam Long categoryId
+    ) {
     	 List<ProductDTO> products = productService.findBySmallCategoryId(categoryId);
          if (!products.isEmpty()) return products;
          products = productService.findByMiddleCategoryId(categoryId);

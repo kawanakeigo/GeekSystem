@@ -13,11 +13,14 @@ import com.example.demo.repository.StoreRepository;
 @Service
 public class StoreService {
     private final StoreRepository storeRepository;
-    public StoreService(StoreRepository storeRepository) {
+    public StoreService(StoreRepository storeRepository
+    ) {
         this.storeRepository = storeRepository;
     }
     
-    private StoreDTO convertToDTO(Store store) {
+    private StoreDTO convertToDTO(
+    	Store store
+    ) {
         StoreDTO dto = new StoreDTO();
         dto.setId(store.getId());
         dto.setName(store.getName());
@@ -25,7 +28,9 @@ public class StoreService {
         return dto;
     }
     
-    private Store convertToEntity(StoreDTO dto) {
+    private Store convertToEntity(
+    	StoreDTO dto
+    ) {
         Store store = new Store();
         store.setId(dto.getId());
         store.setName(dto.getName());
@@ -33,26 +38,33 @@ public class StoreService {
         return store;
     }
     
-    public List<StoreDTO> findAll() {
+    public List<StoreDTO> findAll(
+    ) {
         return storeRepository.findAll()
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
     
-    public StoreDTO findById(Long id) {
+    public StoreDTO findById(
+    	Long id
+    ) {
         return storeRepository.findById(id)
         		.map(this::convertToDTO)
                 .orElse(null);
     }
     
     
-    public void save(StoreDTO storeDto) {
+    public void save(
+    	StoreDTO storeDto
+    ) {
     	Store entity = convertToEntity(storeDto);
         storeRepository.save(entity);
     }
     
-    public void deleteById(Long id) {
+    public void deleteById(
+    	Long id
+    ) {
         storeRepository.deleteById(id);
     }
 }

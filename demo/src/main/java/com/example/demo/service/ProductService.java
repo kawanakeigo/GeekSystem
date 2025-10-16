@@ -16,12 +16,15 @@ public class ProductService {
 	private final ProductRepository productRepository;
 	 private final LargeCategoryRepository largeCategoryRepository;
     public ProductService(ProductRepository productRepository,
-    		LargeCategoryRepository largeCategoryRepository) {
+    		LargeCategoryRepository largeCategoryRepository
+    ) {
         this.productRepository = productRepository;
         this.largeCategoryRepository = largeCategoryRepository;
     }
     
-    private  ProductDTO convertToDTO(Product product) {
+    private  ProductDTO convertToDTO(
+    	Product product
+    ) {
     	ProductDTO dto = new ProductDTO();
     	dto.setId(product.getId());
         dto.setName(product.getName());
@@ -34,7 +37,9 @@ public class ProductService {
         return dto;
     }
     
-    private Product convertToEntity(ProductDTO dto) {
+    private Product convertToEntity(
+    	ProductDTO dto
+    ) {
         Product product = new Product();
         product.setId(dto.getId());
         product.setName(dto.getName());
@@ -47,56 +52,72 @@ public class ProductService {
         return product;
     }
     
-    public List<ProductDTO> getAllProducts() {
+    public List<ProductDTO> getAllProducts(
+    ) {
         return productRepository.findAll()
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
     
-    public ProductDTO getProductById(Long id) {
+    public ProductDTO getProductById(
+    	Long id
+    ) {
         return productRepository.findById(id)
                 .map(this::convertToDTO)
                 .orElse(null);
     }
     
-    public List<ProductDTO> findByLargeCategoryId(Long categoryId) {
+    public List<ProductDTO> findByLargeCategoryId(
+    	Long categoryId
+    ) {
         return productRepository.findByLargeCategoryId(categoryId)
         		.stream()
         		.map(this::convertToDTO)
         		.collect(Collectors.toList());
     }
     
-    public List<ProductDTO> findByMiddleCategoryId(Long categoryId) {
+    public List<ProductDTO> findByMiddleCategoryId(
+    	Long categoryId
+    ) {
         return productRepository.findByMiddleCategoryId(categoryId)
         		.stream()
         		.map(this::convertToDTO)
         		.collect(Collectors.toList());
     }
     
-    public List<ProductDTO> findBySmallCategoryId(Long categoryId) {
+    public List<ProductDTO> findBySmallCategoryId(
+    	Long categoryId
+    ) {
         return productRepository.findBySmallCategoryId(categoryId)
         		.stream()
         		.map(this::convertToDTO)
         		.collect(Collectors.toList());
     }
     
-    public List<LargeCategory> getAllCategories() {
+    public List<LargeCategory> getAllCategories(
+    ) {
         return largeCategoryRepository.findAll();
     }
     
-    public ProductDTO findById(Long id) {
+    public ProductDTO findById(
+    	Long id
+    ) {
         return productRepository.findById(id)
         		.map(this::convertToDTO)
                 .orElse(null);
     }
     
-    public void save(ProductDTO productDto) {
+    public void save(
+    	ProductDTO productDto
+    ) {
     	Product entity = convertToEntity(productDto);
         productRepository.save(entity);
     }
     
-    public void delete(Long id) {
+    public void delete(
+    	Long id
+    ) {
         productRepository.deleteById(id);
     }
 }

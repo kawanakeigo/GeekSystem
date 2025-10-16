@@ -23,19 +23,24 @@ public class CategoryController {
     private final CategoryService categoryService;
     
     public CategoryController(
-    		CategoryService categoryService) {
+    		CategoryService categoryService
+    ) {
         this.categoryService = categoryService;
     }
     
     @GetMapping("/large")
-    public String listLargeCategory(Model model) {
+    public String listLargeCategory(
+    	Model model
+    ) {
         List<LargeCategoryDTO> largeCategories = categoryService.getAllLargeCategories();
         model.addAttribute("largeCategories", largeCategories);
         return "large-categories-list"; 
     }
     
     @GetMapping("/large/{id}")
-    public String detailLargeCategory(@PathVariable Long id, Model model) {
+    public String detailLargeCategory(
+    	@PathVariable Long id, Model model
+    ) {
         LargeCategoryDTO large = categoryService.getLargeCategoryById(id);
         if (large == null) return "redirect:/categories/large";
 
@@ -47,7 +52,9 @@ public class CategoryController {
     }
     
     @GetMapping("/middle/{id}")
-    public String detailMiddleCategory(@PathVariable Long id, Model model) {
+    public String detailMiddleCategory(
+    	@PathVariable Long id, Model model
+    ) {
     	MiddleCategoryDTO middle = categoryService.getMiddleCategoryById(id);
         if (middle == null) return "redirect:/categories/large";
 
@@ -59,7 +66,9 @@ public class CategoryController {
     }
     
     @GetMapping("/small/{id}")
-    public String detailSmallCategory(@PathVariable Long id, Model model) {
+    public String detailSmallCategory(
+    	@PathVariable Long id, Model model
+    ) {
         SmallCategoryDTO small = categoryService.getSmallCategoryById(id);
         if (small == null) return "redirect:/categories/large";
 
@@ -69,7 +78,9 @@ public class CategoryController {
     
     @GetMapping("/children")
     @ResponseBody
-    public List<CategoryDTO> getChildCategories(@RequestParam("parentId") Long parentId) {
+    public List<CategoryDTO> getChildCategories(
+    	@RequestParam("parentId") Long parentId
+    ) {
         return categoryService.getChildCategories(parentId);
     }
 }

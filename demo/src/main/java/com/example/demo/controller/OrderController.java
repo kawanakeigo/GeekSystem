@@ -22,7 +22,9 @@ public class OrderController {
     }
     
     @GetMapping("/new")
-    public String showOrderForm(Model model) {
+    public String showOrderForm(
+    	Model model
+    ) {
         model.addAttribute("categories", orderService.getAllCategories());
         model.addAttribute("products", orderService.getAllProducts());
         model.addAttribute("stores", orderService.getAllStores());
@@ -31,7 +33,9 @@ public class OrderController {
     }
     
     @PostMapping
-    public String createOrder(@Valid @ModelAttribute ("orderForm") OrderForm orderForm,BindingResult result) {
+    public String createOrder(
+    	@Valid @ModelAttribute ("orderForm") OrderForm orderForm,BindingResult result
+    ) {
     	if (result.hasErrors()) {
         return "redirect:/orders";
     	}
@@ -40,7 +44,9 @@ public class OrderController {
     }
     
     @GetMapping
-    public String listOrders(Model model) {
+    public String listOrders(
+    	Model model
+    ) {
         model.addAttribute("orders", orderService.findAllOrders());
         return "order-list";
     }

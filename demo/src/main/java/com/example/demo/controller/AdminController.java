@@ -28,21 +28,27 @@ public class AdminController {
 
     // 一覧
     @GetMapping
-    public String listAdmins(Model model) {
+    public String listAdmins(
+    	Model model
+    ) {
         model.addAttribute("admins", adminService.getAllAdmins());
         return "admin-list";
     }
 
     // 詳細
     @GetMapping("/{id}")
-    public String detail(@PathVariable Long id, Model model) {
+    public String detail(
+    	@PathVariable Long id, Model model
+    ) {
         model.addAttribute("admin", adminService.getAdmin(id));
         return "admins-detail";
     }
 
     // 新規作成フォーム
     @GetMapping("/new")
-    public String showCreateForm(Model model) {
+    public String showCreateForm(
+    	Model model
+    ) {
         model.addAttribute("adminForm", new AdminForm());
         model.addAttribute("roles", adminService.getAllRoll());
         model.addAttribute("stores", adminService.getAllStores());
@@ -52,9 +58,11 @@ public class AdminController {
 
     // 新規作成処理
     @PostMapping("/new")
-    public String createAdmin(@Valid @ModelAttribute("adminForm") AdminForm form, BindingResult result,Model model) {
-    	
-    	if(result.hasErrors()) {
+    public String createAdmin(
+    	@Valid @ModelAttribute("adminForm") AdminForm form, BindingResult result,Model model
+    ) {
+    	if(result.hasErrors()
+    	) {
     		model.addAttribute("roles", adminService.getAllRoll());
             model.addAttribute("stores", adminService.getAllStores());
             model.addAttribute("authorities", adminService.getAllAuthorities());
@@ -66,9 +74,12 @@ public class AdminController {
 
     // 編集フォーム
     @GetMapping("/{id}/edit")
-    public String showEditForm(@PathVariable Long id, Model model) {
+    public String showEditForm(
+    	@PathVariable Long id, Model model
+    ) {
         AdminDTO adminDto = adminService.getAdmin(id);
-        if (adminDto == null) {
+        if (adminDto == null
+        ) {
             return "redirect:/admins";
         }
         AdminForm form = adminService.convertToForm(adminDto);
@@ -81,9 +92,12 @@ public class AdminController {
 
     // 編集処理
     @PostMapping("/{id}/edit")
-    public String updateAdmin(@PathVariable Long id, @Valid @ModelAttribute("adminForm") AdminForm form,BindingResult result,Model model) {
+    public String updateAdmin(
+    	@PathVariable Long id, @Valid @ModelAttribute("adminForm") AdminForm form,BindingResult result,Model model
+    ) {
     	
-    	if(result.hasErrors()) {
+    	if(result.hasErrors()
+    	) {
     		model.addAttribute("roles", adminService.getAllRoll());
             model.addAttribute("stores", adminService.getAllStores());
             model.addAttribute("authorities", adminService.getAllAuthorities());
@@ -95,7 +109,9 @@ public class AdminController {
 
     // 削除
     @PostMapping("/{id}/delete")
-    public String delete(@PathVariable Long id) {
+    public String delete(
+    	@PathVariable Long id
+    ) {
         adminService.delete(id);
         return "redirect:/admins";
     }

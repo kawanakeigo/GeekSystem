@@ -16,18 +16,24 @@ import com.example.demo.service.StoreService;
 public class StoreController {
     private final StoreService storeService;
     
-    public StoreController(StoreService storeService) {
+    public StoreController(
+    	StoreService storeService
+    ) {
         this.storeService = storeService;
     }
     
     @GetMapping
-    public String getAllStores(Model model) {
+    public String getAllStores(
+    	Model model
+    ) {
         model.addAttribute("stores", storeService.findAll());
         return "store-list"; 
     }
     
     @GetMapping("/{id}")
-    public String detail(@PathVariable Long id, Model model) {
+    public String detail(
+    	@PathVariable Long id, Model model
+    ) {
         StoreDTO store = storeService.findById(id);
         if (store == null) {
             return "redirect:/stores";
@@ -37,7 +43,9 @@ public class StoreController {
     }
     
     @GetMapping("/{id}/edit")
-    public String showEditForm(@PathVariable Long id, Model model) {
+    public String showEditForm(
+    	@PathVariable Long id, Model model
+    ) {
         StoreDTO store = storeService.findById(id);
         if (store == null) {
             return "redirect:/stores";
@@ -47,14 +55,18 @@ public class StoreController {
     }
     
     @PostMapping("/{id}/edit")
-    public String updateStore(@PathVariable Long id, @ModelAttribute StoreDTO store) {
+    public String updateStore(
+    	@PathVariable Long id, @ModelAttribute StoreDTO store
+    ) {
         store.setId(id); 
         storeService.save(store);
         return "redirect:/stores/" + id;
     }
     
     @PostMapping("/{id}/delete")
-    public String deleteStore(@PathVariable Long id) {
+    public String deleteStore(
+    	@PathVariable Long id
+    ) {
         storeService.deleteById(id);
         return "redirect:/stores";
     }
