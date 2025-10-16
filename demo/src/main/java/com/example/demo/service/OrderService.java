@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +13,7 @@ import com.example.demo.entity.Order;
 import com.example.demo.entity.Product;
 import com.example.demo.entity.Store;
 import com.example.demo.form.OrderForm;
+import com.example.demo.repository.AdminRepository;
 import com.example.demo.repository.LargeCategoryRepository;
 import com.example.demo.repository.OrderRepository;
 import com.example.demo.repository.ProductRepository;
@@ -22,16 +25,19 @@ public class OrderService {
     private final ProductRepository productRepository;
     private final StoreRepository storeRepository;
     private final LargeCategoryRepository largeCategoryRepository;
+    private final AdminRepository adminRepository;
     
     public OrderService(OrderRepository orderRepository,
                         ProductRepository productRepository,
                         StoreRepository storeRepository,
-                        LargeCategoryRepository largeCategoryRepository
+                        LargeCategoryRepository largeCategoryRepository,
+                        AdminRepository adminRepository
     ) {
         this.orderRepository = orderRepository;
         this.productRepository = productRepository;
         this.storeRepository = storeRepository;
         this.largeCategoryRepository = largeCategoryRepository;
+        this.adminRepository = adminRepository;
     }
     
     public List<Order> findAllOrders(
@@ -65,6 +71,10 @@ public class OrderService {
                             .orElseThrow(() -> new IllegalArgumentException("店舗が見つかりません"));
         LargeCategory category = largeCategoryRepository.findById(form.getCategoryId())
         					.orElseThrow(() ->new IllegalArgumentException("カテゴリが見つかりません"));
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+        Admin admin = adminRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("ログイン中の管理者が見つかりません"));
         
         Order order = new Order();
         order.setProduct(product);
@@ -72,9 +82,6 @@ public class OrderService {
         order.setQuantity(form.getQuantity());
         order.setLarge_categories_Id(category.getId());
         order.setStatus("発注済み");  
-        
-        Admin admin = new Admin();
-        admin.setId(1L);
         order.setAdmin(admin);
            
         return orderRepository.save(order);
