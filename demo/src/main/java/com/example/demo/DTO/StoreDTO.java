@@ -5,7 +5,7 @@ public class StoreDTO {
     private String name;
     private String location; 
     
-    //以下setter/getter
+    //　以下setter/getter
     public Long getId() {
         return id;
     }

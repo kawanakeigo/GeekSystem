@@ -11,7 +11,7 @@ public class LargeCategory {
     private Long id;
     private String name;
     
-    //以下getter/setter
+    //　以下getter/setter
     public Long getId() { 
     	return id;
     }

@@ -11,7 +11,7 @@ public class CategoryDTO {
         this.name = name;
     }
 
-    //以下getter/setter
+    //　以下getter/setter
     public Long getId() { 
     	return id;
     	}

@@ -12,7 +12,7 @@ public class SmallCategory {
     private String name;
     private Long middleCategoriesId; 
     
-    //以下getter/setter
+    //　以下getter/setter
     public Long getId() {
     	return id;
     }

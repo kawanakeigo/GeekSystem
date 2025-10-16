@@ -47,7 +47,7 @@ public class Admin {
     @Column(name = "updated_at")
     private Timestamp updatedAt;
    
-    //以下getter/setter
+    //　以下getter/setter
     public Long getId() {
         return id;
     }
