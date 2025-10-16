@@ -19,33 +19,6 @@ public class MakerService {
         this.makerRepository = makerRepository;
     }
     
-    private MakerDTO convertToDTO(
-    	Maker maker
-    ) {
-        MakerDTO dto = new MakerDTO();
-        dto.setId(maker.getId());
-        dto.setName(maker.getName());
-        return dto;
-    }
-    
-    private MakerForm convertToForm(
-    	Maker maker
-    ) {
-        MakerForm form = new MakerForm();
-        form.setId(maker.getId());
-        form.setName(maker.getName());
-        return form;
-    }
-    
-    private Maker convertToEntity(
-    	MakerForm form
-    ) {
-        Maker maker = new Maker();
-        maker.setId(form.getId());
-        maker.setName(form.getName());
-        return maker;
-    }
-    
     public List<MakerDTO> getAllMakers(
     ) {
         return makerRepository.findAll()
@@ -95,4 +68,31 @@ public class MakerService {
     ) {
         makerRepository.deleteById(id);
     }
+    
+    private MakerDTO convertToDTO(
+        	Maker maker
+        ) {
+            MakerDTO dto = new MakerDTO();
+            dto.setId(maker.getId());
+            dto.setName(maker.getName());
+            return dto;
+        }
+        
+        private MakerForm convertToForm(
+        	Maker maker
+        ) {
+            MakerForm form = new MakerForm();
+            form.setId(maker.getId());
+            form.setName(maker.getName());
+            return form;
+        }
+        
+        private Maker convertToEntity(
+        	MakerForm form
+        ) {
+            Maker maker = new Maker();
+            maker.setId(form.getId());
+            maker.setName(form.getName());
+            return maker;
+        }
 }

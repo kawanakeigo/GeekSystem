@@ -31,35 +31,6 @@ public class CategoryService {
         this.smallCategoryRepository = smallCategoryRepository;
     }
     
-    private LargeCategoryDTO convertLargeToDTO(
-    	LargeCategory largeCategory
-    ) {
-        LargeCategoryDTO dto = new LargeCategoryDTO();
-        dto.setId(largeCategory.getId());
-        dto.setName(largeCategory.getName());
-        return dto;
-    }
-    
-    private MiddleCategoryDTO convertMiddleToDTO(
-    	MiddleCategory middleCategory
-    ) {
-        MiddleCategoryDTO dto = new MiddleCategoryDTO();
-        dto.setId(middleCategory.getId());
-        dto.setName(middleCategory.getName());
-        dto.setLargeCategoriesId(middleCategory.getLargeCategoriesId());
-        return dto;
-    }
-    
-    private SmallCategoryDTO convertSmallToDTO(
-    	SmallCategory snallCategory
-    ) {
-        SmallCategoryDTO dto = new SmallCategoryDTO();
-        dto.setId(snallCategory.getId());
-        dto.setName(snallCategory.getName());
-        dto.setMiddleCategoriesId(snallCategory.getMiddleCategoriesId());
-        return dto;
-    }
-    
     public List<LargeCategoryDTO> getAllLargeCategories(
     ) {
         return largeCategoryRepository.findAll()
@@ -127,4 +98,32 @@ public class CategoryService {
         }
         return List.of();
     }
+    private LargeCategoryDTO convertLargeToDTO(
+        	LargeCategory largeCategory
+        ) {
+            LargeCategoryDTO dto = new LargeCategoryDTO();
+            dto.setId(largeCategory.getId());
+            dto.setName(largeCategory.getName());
+            return dto;
+        }
+        
+        private MiddleCategoryDTO convertMiddleToDTO(
+        	MiddleCategory middleCategory
+        ) {
+            MiddleCategoryDTO dto = new MiddleCategoryDTO();
+            dto.setId(middleCategory.getId());
+            dto.setName(middleCategory.getName());
+            dto.setLargeCategoriesId(middleCategory.getLargeCategoriesId());
+            return dto;
+        }
+        
+        private SmallCategoryDTO convertSmallToDTO(
+        	SmallCategory snallCategory
+        ) {
+            SmallCategoryDTO dto = new SmallCategoryDTO();
+            dto.setId(snallCategory.getId());
+            dto.setName(snallCategory.getName());
+            dto.setMiddleCategoriesId(snallCategory.getMiddleCategoriesId());
+            return dto;
+        }
 }

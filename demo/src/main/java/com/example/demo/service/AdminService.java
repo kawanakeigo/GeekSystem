@@ -36,72 +36,42 @@ public class AdminService {
         this.authoritiesRepository = authoritiesRepository;
     }
     
-    public List<Store> getAllStores() {
+    public List<Store> getAllStores(
+    ) {
         return storeRepository.findAll();
     }
     
-    public List<Authority> getAllAuthorities() {
+    public List<Authority> getAllAuthorities(
+    ) {
         return authoritiesRepository.findAll();
     }
     
-    public List<Role> getAllRoll() {
+    public List<Role> getAllRoll(
+    ) {
         return roleRepository.findAll();
     }
 
-    public void save(Admin admin) {
+    public void save(
+    	Admin admin
+    ) {
         adminRepository.save(admin);
     }
     
-    //EntityをDTOに変換
-    private AdminDTO convertToDTO(
-    	Admin admin
-    ) {
-        AdminDTO dto = new AdminDTO();
-        dto.setId(admin.getId());
-        dto.setFirstName(admin.getFirstName());
-        dto.setLastName(admin.getLastName());
-        dto.setEmail(admin.getEmail());
-        dto.setPhonenumber(admin.getPhonenumber());
-        dto.setRole(admin.getRole());
-        dto.setStore(admin.getStore());
-        dto.setAuthoritiesId(admin.getAuthoritiesId());
-        return dto;
-    }
-    
-    public List<AdminDTO> getAllAdmins(
-    ) {
-        return adminRepository.findAll()
-                .stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
-    }
-    
     public AdminDTO getAdmin(
+        	Long id
+        ) {
+            return adminRepository.findById(id)
+                    .map(this::convertToDTO)
+                    .orElse(null);
+        }
+    
+    @Transactional
+    public void delete(
     	Long id
     ) {
-        return adminRepository.findById(id)
-                .map(this::convertToDTO)
-                .orElse(null);
+        adminRepository.deleteById(id);
     }
-    
-    //DTOをFormに変換
-    public AdminForm convertToForm(
-    	AdminDTO adminDto
-    ) {
-    	if(adminDto == null)return null;
-    	
-    	AdminForm form = new AdminForm();
-    	form.setId(adminDto.getId());
-        form.setFirstName(adminDto.getFirstName());
-        form.setLastName(adminDto.getLastName());
-        form.setEmail(adminDto.getEmail());
-        form.setPhonenumber(adminDto.getPhonenumber());
-        form.setRoleId(adminDto.getRole().getId());
-        form.setStoreId(adminDto.getStore().getId());
-        form.setAuthoritiesId(adminDto.getAuthoritiesId());
-        return form;
-    }
-    
+  
     //新規作成
     @Transactional
     public Admin create(
@@ -149,11 +119,46 @@ public class AdminService {
 		return adminRepository.save(admin);
     }
     
-    @Transactional
-    public void delete(
-    	Long id
+    //EntityをDTOに変換
+    private AdminDTO convertToDTO(
+    	Admin admin
     ) {
-        adminRepository.deleteById(id);
+        AdminDTO dto = new AdminDTO();
+        dto.setId(admin.getId());
+        dto.setFirstName(admin.getFirstName());
+        dto.setLastName(admin.getLastName());
+        dto.setEmail(admin.getEmail());
+        dto.setPhonenumber(admin.getPhonenumber());
+        dto.setRole(admin.getRole());
+        dto.setStore(admin.getStore());
+        dto.setAuthoritiesId(admin.getAuthoritiesId());
+        return dto;
+    }
+    
+    public List<AdminDTO> getAllAdmins(
+    ) {
+        return adminRepository.findAll()
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+    
+    //DTOをFormに変換
+    public AdminForm convertToForm(
+    	AdminDTO adminDto
+    ) {
+    	if(adminDto == null)return null;
+    	
+    	AdminForm form = new AdminForm();
+    	form.setId(adminDto.getId());
+        form.setFirstName(adminDto.getFirstName());
+        form.setLastName(adminDto.getLastName());
+        form.setEmail(adminDto.getEmail());
+        form.setPhonenumber(adminDto.getPhonenumber());
+        form.setRoleId(adminDto.getRole().getId());
+        form.setStoreId(adminDto.getStore().getId());
+        form.setAuthoritiesId(adminDto.getAuthoritiesId());
+        return form;
     }
 }
     

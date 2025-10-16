@@ -18,26 +18,6 @@ public class StoreService {
         this.storeRepository = storeRepository;
     }
     
-    private StoreDTO convertToDTO(
-    	Store store
-    ) {
-        StoreDTO dto = new StoreDTO();
-        dto.setId(store.getId());
-        dto.setName(store.getName());
-        dto.setLocation(store.getLocation());
-        return dto;
-    }
-    
-    private Store convertToEntity(
-    	StoreDTO dto
-    ) {
-        Store store = new Store();
-        store.setId(dto.getId());
-        store.setName(dto.getName());
-        store.setLocation(dto.getLocation());
-        return store;
-    }
-    
     public List<StoreDTO> findAll(
     ) {
         return storeRepository.findAll()
@@ -66,5 +46,24 @@ public class StoreService {
     	Long id
     ) {
         storeRepository.deleteById(id);
+    }
+    
+    private StoreDTO convertToDTO(
+    	Store store
+    ) {
+    	StoreDTO dto = new StoreDTO();
+    	dto.setId(store.getId());
+    	dto.setName(store.getName());
+    	dto.setLocation(store.getLocation());
+    	return dto;
+        }
+    private Store convertToEntity(
+    	StoreDTO dto
+    ) {
+    	Store store = new Store();
+    	store.setId(dto.getId());
+    	store.setName(dto.getName());
+    	store.setLocation(dto.getLocation());
+    	return store;
     }
 }
