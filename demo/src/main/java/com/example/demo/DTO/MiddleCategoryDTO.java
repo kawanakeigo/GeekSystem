@@ -5,7 +5,7 @@ public class MiddleCategoryDTO {
     private String name;
     private Long largeCategoriesId;
     
-    //以下getter_setter
+    //以下getter/setter
     
     public Long getId() { 
     	return id;

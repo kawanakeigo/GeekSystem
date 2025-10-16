@@ -10,7 +10,7 @@ public class ProductDTO {
     private Double price;
     private String description;
 
-    // 以下getter/setter 
+    //以下getter/setter 
     public Long getId() { 
     	return id; 
     }

@@ -4,7 +4,7 @@ public class LargeCategoryDTO {
 	private Long id;
     private String name;
     
-    //以下gettersetter
+    //以下getter/setter
     public Long getId() { 
     	return id;
     }

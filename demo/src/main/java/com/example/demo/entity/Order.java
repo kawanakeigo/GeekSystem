@@ -62,7 +62,7 @@ public class Order {
    
     private String status;
     
-    //以下getter・setter
+    //以下getter/setter
     public Admin getAdmin(Admin admin) {
     	return admin;
     }
