@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>大カテゴリ詳細</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+	<h1 th:text="${largeCategory.name}">大カテゴリ詳細</h1>
+	<h2>中カテゴリ一覧</h2>
+	<ul>
+	  <li th:each="m : ${middleCategories}">
+	    <a th:href="@{/categories/middle/{id}(id=${m.id})}" th:text="${m.name}"></a>
+	  </li>
+	</ul>
+	
+	<li>
+		<a th:href="@{/}">Topページへ</a>
+	</li>
+</body>
+</html>

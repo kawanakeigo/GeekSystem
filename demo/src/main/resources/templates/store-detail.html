@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>店舗一覧</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+	<h1>店舗一覧</h1>
+	<p>ID: <span th:text="${store.id}"></span></p>
+	<p>店舗名: <span th:text="${store.name}"></span></p>
+	<p>住所: <span th:text="${store.location}"></span></p>
+	
+	<a th:href="@{/stores/{id}/edit(id=${store.id})}">編集</a>
+	<form th:action="@{/stores/{id}/delete(id=${store.id})}" method="post">
+		<button type="submit">削除</button>
+  	</form>
+</body>
+</html>

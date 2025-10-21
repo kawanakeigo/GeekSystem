@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>メーカー一覧</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+	<h1>メーカー一覧</h1>
+	<ul>
+	  <li th:each="maker : ${makers}">
+	    <a th:href="@{/makers/{id}(id=${maker.id})}" th:text="${maker.name}"></a>
+	  </li>
+	</ul>
+	<a th:href="@{/makers/new}">新規作成</a>
+	<li><a th:href="@{/}">Topページへ</a></li>
+</body>
+</html>
